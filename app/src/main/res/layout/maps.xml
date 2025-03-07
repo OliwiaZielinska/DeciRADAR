@@ -7,4 +7,19 @@
     android:background="@drawable/layout_2"
     tools:context=".Maps">
 
+
+    <Button
+        android:id="@+id/returnFromMapsButton"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWRÓT"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96" />
 </androidx.constraintlayout.widget.ConstraintLayout>
