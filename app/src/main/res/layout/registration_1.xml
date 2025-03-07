@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_2"
+    tools:context=".Registration1">
+
+    <TextView
+        android:id="@+id/Registration1Text"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:text="Wypełnij wymagane pola swoimi danymi"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
+
+
+    <TextView
+        android:id="@+id/NameText"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:background="#925DC0AC"
+        android:text="IMIĘ"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="270dp" />
+
+    <TextView
+        android:id="@+id/SurnameText"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:background="#915DC0AC"
+        android:text="NAZWISKO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <TextView
+        android:id="@+id/RegistrationMailText"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:background="#915DC0AC"
+        android:text="MAIL"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="397dp" />
+
+    <TextView
+        android:id="@+id/RegistrationPasswordText"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:background="#915DC0AC"
+        android:text="HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="461dp" />
+
+    <TextView
+        android:id="@+id/RegistrationDuplicatePasswordText"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:background="#915DC0AC"
+        android:text="POWTÓRZ HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="529dp" />
+
+    <EditText
+        android:id="@+id/RegistrationNameInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:fontFamily="sans-serif"
+        android:hint="Imię"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="270dp" />
+
+    <EditText
+        android:id="@+id/RegistrationSurnameInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Nazwisko"
+        android:inputType="textPassword"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+
+    <EditText
+        android:id="@+id/RegistrationMailInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Mail"
+        android:inputType="textPassword"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="397dp" />
+
+    <EditText
+        android:id="@+id/RegistrationPasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Hasło"
+        android:inputType="textPassword"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="461dp" />
+
+    <EditText
+        android:id="@+id/RegistrationDuplicatePasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Potwórz hasło"
+        android:inputType="textPassword"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="529dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
