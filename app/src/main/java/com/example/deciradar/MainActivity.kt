@@ -1,46 +1,36 @@
 package com.example.deciradar
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.deciradar.ui.theme.DeciRADARTheme
-
-class MainActivity : ComponentActivity() {
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+/**
+ * Main activity of the application, responsible for handling user interactions
+ * on the login and sign-up buttons.
+ */
+class ActivityMain : AppCompatActivity() {
+    private lateinit var logInButtonEnd: Button
+    private lateinit var signUpButton1: Button
+    /**
+     * Called when the activity is first created. It initializes the UI components
+     * and sets click listeners for the buttons.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     * previously being shut down, this contains the most recent data.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            DeciRADARTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        setContentView(R.layout.activity_main)
+
+        logInButtonEnd = findViewById(R.id.logInButtonEnd)
+        signUpButton1 = findViewById(R.id.signUpButton1)
+
+        signUpButton1.setOnClickListener {
+            Toast.makeText(this, "Kliknięto ZAREJESTRUJ SIĘ", Toast.LENGTH_SHORT).show()
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DeciRADARTheme {
-        Greeting("Android")
+        logInButtonEnd.setOnClickListener {
+            Toast.makeText(this, "Kliknięto ZALOGUJ SIĘ", Toast.LENGTH_SHORT).show()
+        }
     }
 }
