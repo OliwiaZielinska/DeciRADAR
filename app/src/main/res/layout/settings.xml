@@ -25,15 +25,19 @@
         android:id="@+id/EndHourSettingsInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
+        android:layout_marginStart="175dp"
         android:gravity="center"
         android:text="08:00"
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/StartNightModeSettingsText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="204dp" />
+        app:layout_constraintVertical_bias="0.37"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 
     <TextView
         android:id="@+id/StartNightModeSettingsText"
@@ -47,11 +51,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.363" />
-
 
     <TextView
         android:id="@+id/EndNightModeSettingsText"
@@ -65,7 +68,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.448" />
@@ -79,10 +82,12 @@
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.872"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.456"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="204dp" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/Settings2Text"
@@ -125,8 +130,8 @@
 
     <TextView
         android:id="@+id/SettingsPasswordText"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
+        android:layout_width="164dp"
+        android:layout_height="35dp"
         android:background="@drawable/rounded_background"
         android:text="HASŁO"
         android:textAlignment="center"
@@ -138,11 +143,11 @@
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="0.635" />
 
     <TextView
         android:id="@+id/SetingsDuplicatePasswordText"
-        android:layout_width="162dp"
+        android:layout_width="164dp"
         android:layout_height="54dp"
         android:background="@drawable/rounded_background"
         android:text="POWTÓRZ HASŁO"

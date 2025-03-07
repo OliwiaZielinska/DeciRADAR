@@ -20,55 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
-
-    <TextView
-        android:id="@+id/EndHourRegistration2Input"
-        android:layout_width="192dp"
-        android:layout_height="48dp"
-        android:gravity="center"
-        android:text="08:00"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="203dp" />
-
-    <TextView
-        android:id="@+id/StartNightModeRegistration2Text"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
-        android:background="@drawable/rounded_background"
-        android:text="POCZĄTEK"
-        android:textAlignment="center"
-        android:textColor="#3E4C57"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552" />
-
-    <TextView
-        android:id="@+id/EndNightModeRegistration2Text"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
-        android:background="@drawable/rounded_background"
-        android:text="KONIEC"
-        android:textAlignment="center"
-        android:textColor="#3E4C57"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.703" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <TextView
         android:id="@+id/StartHourRegistration2Input"
@@ -80,9 +32,57 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.705"
+        app:layout_constraintVertical_bias="0.793"
         tools:ignore="SpeakableTextPresentCheck"
         tools:layout_editor_absoluteX="203dp" />
+
+    <TextView
+        android:id="@+id/EndHourRegistration2Input"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="08:00"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.686"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="203dp" />
+
+    <TextView
+        android:id="@+id/StartNightModeRegistration2Text"
+        android:layout_width="167dp"
+        android:layout_height="47dp"
+        android:background="@drawable/rounded_background"
+        android:text="POCZĄTEK"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.682" />
+
+    <TextView
+        android:id="@+id/EndNightModeRegistration2Text"
+        android:layout_width="167dp"
+        android:layout_height="47dp"
+        android:background="@drawable/rounded_background"
+        android:text="KONIEC"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79" />
 
     <Button
         android:id="@+id/SaveRegistration2Button"
@@ -111,6 +111,22 @@
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="650dp" />
+
+    <ImageView
+        android:id="@+id/MoonImageView"
+        android:layout_width="288dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="8dp"
+        android:rotation="2"
+
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.454"
+        app:srcCompat="@drawable/moon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

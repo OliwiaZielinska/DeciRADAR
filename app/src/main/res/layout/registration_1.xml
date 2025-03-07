@@ -23,79 +23,79 @@
 
     <TextView
         android:id="@+id/NameText"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_background"
         android:text="IMIĘ"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Registration1Text"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.031" />
 
     <TextView
         android:id="@+id/SurnameText"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_background"
         android:text="NAZWISKO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/NameText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.052" />
 
     <TextView
         android:id="@+id/RegistrationMailText"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="63dp"
         android:background="@drawable/rounded_background"
         android:text="MAIL"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/RegistrationPasswordText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SurnameText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/RegistrationPasswordText"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
         android:background="@drawable/rounded_background"
         android:text="HASŁO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.669" />
+        app:layout_constraintVertical_bias="0.648" />
 
     <TextView
         android:id="@+id/RegistrationDuplicatePasswordText"
-        android:layout_width="162dp"
+        android:layout_width="117dp"
         android:layout_height="54dp"
         android:background="@drawable/rounded_background"
         android:text="POWTÓRZ HASŁO"
