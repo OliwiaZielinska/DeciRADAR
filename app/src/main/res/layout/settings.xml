@@ -47,7 +47,7 @@
         android:text="POCZĄTEK"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
         android:text="KONIEC"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +136,7 @@
         android:text="HASŁO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,21 +163,6 @@
         app:layout_constraintVertical_bias="0.757" />
 
     <Button
-        android:id="@+id/SaveSettingsButton"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_background"
-        android:text="ZAPISZ"
-        android:textColor="#3E4C57"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
-
-    <Button
         android:id="@+id/BackSettingsButton"
         android:layout_width="180dp"
         android:layout_height="50dp"
@@ -188,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.982"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="599dp" />
+        tools:layout_editor_absoluteY="607dp" />
 
     <Button
         android:id="@+id/DeleteAccountSettingsButton"
@@ -203,7 +188,22 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.988" />
+
+    <Button
+        android:id="@+id/SaveSettingsButton"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAPISZ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
