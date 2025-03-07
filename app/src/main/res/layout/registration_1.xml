@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,168 +8,187 @@
 
     <TextView
         android:id="@+id/Registration1Text"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
         android:text="Wypełnij wymagane pola swoimi danymi"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.264" />
-
 
     <TextView
         android:id="@+id/NameText"
         android:layout_width="162dp"
         android:layout_height="54dp"
-        android:background="#925DC0AC"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_background"
         android:text="IMIĘ"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="270dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Registration1Text"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/SurnameText"
         android:layout_width="162dp"
         android:layout_height="54dp"
-        android:background="#915DC0AC"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_background"
         android:text="NAZWISKO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="333dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/NameText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/RegistrationMailText"
         android:layout_width="162dp"
         android:layout_height="54dp"
-        android:background="#915DC0AC"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="63dp"
+        android:background="@drawable/rounded_background"
         android:text="MAIL"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="397dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/RegistrationPasswordText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SurnameText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/RegistrationPasswordText"
         android:layout_width="162dp"
         android:layout_height="54dp"
-        android:background="#915DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="HASŁO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="461dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.669" />
 
     <TextView
         android:id="@+id/RegistrationDuplicatePasswordText"
         android:layout_width="162dp"
         android:layout_height="54dp"
-        android:background="#915DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="POWTÓRZ HASŁO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="529dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.769" />
 
     <EditText
         android:id="@+id/RegistrationNameInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:fontFamily="sans-serif"
         android:hint="Imię"
-        android:lineSpacingExtra="10sp"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="270dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="261dp" />
 
     <EditText
         android:id="@+id/RegistrationSurnameInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
         android:hint="Nazwisko"
-        android:inputType="textPassword"
-        android:lineSpacingExtra="10sp"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="333dp" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="327dp" />
 
     <EditText
         android:id="@+id/RegistrationMailInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
         android:hint="Mail"
-        android:inputType="textPassword"
-        android:lineSpacingExtra="10sp"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="397dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="389dp" />
 
     <EditText
         android:id="@+id/RegistrationPasswordInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
         android:hint="Hasło"
-        android:inputType="textPassword"
-        android:lineSpacingExtra="10sp"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="461dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="453dp" />
 
     <EditText
         android:id="@+id/RegistrationDuplicatePasswordInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
         android:hint="Potwórz hasło"
-        android:inputType="textPassword"
-        android:lineSpacingExtra="10sp"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="529dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="525dp" />
 
+    <Button
+        android:id="@+id/SaveRegistration1Button"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAPISZ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/RegistrationDuplicatePasswordInput" />
+
+    <Button
+        android:id="@+id/BackRegistration1Button"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWRÓT"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="650dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

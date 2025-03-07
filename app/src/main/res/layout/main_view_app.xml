@@ -7,7 +7,6 @@
     android:background="@drawable/layout_2"
     tools:context=".MainViewApp">
 
-
     <TextView
         android:id="@+id/MainViewAppText"
         android:layout_width="387dp"
@@ -15,93 +14,99 @@
         android:text="Aktualne natężenie dźwięku [dB]"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.264"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/valueOfDecibelsText"
         android:layout_width="110dp"
         android:layout_height="45dp"
-        android:autoText="false"
-        android:background="#925DC0AC"
+        android:background="@drawable/rounded_background"
         android:textAlignment="center"
         android:textColor="#3E4C57"
-        android:textColorHint="#3E4C57"
-        android:textColorLink="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.362"
-        tools:layout_editor_absoluteX="150dp" />
+        app:layout_constraintVertical_bias="0.348"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/StatisticsButton"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:backgroundTint="#5DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="STATYSTYKI"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="115dp" />
+        app:layout_constraintVertical_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/MapsButton"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:backgroundTint="#5DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="MAPA"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.614"
-        tools:layout_editor_absoluteX="115dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/GuideButton"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:backgroundTint="#5DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="PORADNIK"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.73"
-        tools:layout_editor_absoluteX="115dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/SettingsButton"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:backgroundTint="#5DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="USTAWIENIA"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintVertical_bias="0.943" />
 
     <Button
         android:id="@+id/LogOutButton"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:backgroundTint="#5DC0AC"
+        android:background="@drawable/rounded_background"
         android:text="WYLOGUJ SIĘ"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922"
-        tools:layout_editor_absoluteX="215dp" />
+        app:layout_constraintVertical_bias="0.943" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
