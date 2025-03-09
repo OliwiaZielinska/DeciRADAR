@@ -26,16 +26,13 @@
         android:id="@+id/ProbabilityImageView"
         android:layout_width="384dp"
         android:layout_height="283dp"
-        android:layout_marginTop="8dp"
-        android:rotation="2"
+        android:layout_marginTop="15dp"
 
+        android:rotation="2"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64"
+        app:layout_constraintTop_toBottomOf="@+id/AdvicesTextView"
         app:srcCompat="@drawable/probability" />
 
     <Button
@@ -47,39 +44,34 @@
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintEnd_toStartOf="@+id/BackGuideButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintTop_toBottomOf="@+id/AdviceTextView" />
 
     <TextView
         android:id="@+id/AdviceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
+        android:layout_marginTop="25dp"
         android:text=""
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProbabilityImageView" />
 
     <Button
         android:id="@+id/BackGuideButton"
         android:layout_width="172dp"
         android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_background"
         android:text="POWRÓT"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintTop_toBottomOf="@+id/AdviceTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

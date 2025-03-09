@@ -25,171 +25,158 @@
         android:id="@+id/NameText"
         android:layout_width="117dp"
         android:layout_height="33dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="95dp"
         android:background="@drawable/rounded_background"
         android:text="IMIĘ"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationNameInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Registration1Text"
-        app:layout_constraintVertical_bias="0.031" />
+        app:layout_constraintTop_toTopOf="@+id/Registration1Text" />
 
     <TextView
         android:id="@+id/SurnameText"
         android:layout_width="117dp"
         android:layout_height="33dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_background"
         android:text="NAZWISKO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationSurnameInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/NameText"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintTop_toBottomOf="@+id/NameText" />
 
     <TextView
         android:id="@+id/RegistrationMailText"
         android:layout_width="117dp"
         android:layout_height="33dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="63dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_background"
         android:text="MAIL"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/RegistrationPasswordText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationMailInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SurnameText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/SurnameText" />
 
     <TextView
         android:id="@+id/RegistrationPasswordText"
         android:layout_width="117dp"
         android:layout_height="33dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_background"
         android:text="HASŁO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationPasswordInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationMailText" />
 
     <TextView
         android:id="@+id/RegistrationDuplicatePasswordText"
         android:layout_width="117dp"
         android:layout_height="54dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_background"
         android:text="POWTÓRZ HASŁO"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationDuplicatePasswordInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.769" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationPasswordText" />
 
     <EditText
         android:id="@+id/RegistrationNameInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
         android:hint="Imię"
         android:textColor="#3E4C57"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="261dp" />
+        app:layout_constraintTop_toBottomOf="@+id/Registration1Text" />
 
     <EditText
         android:id="@+id/RegistrationSurnameInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
         android:hint="Nazwisko"
         android:textColor="#3E4C57"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="327dp" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationNameInput" />
 
     <EditText
         android:id="@+id/RegistrationMailInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
         android:hint="Mail"
         android:textColor="#3E4C57"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="389dp" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationSurnameInput" />
 
     <EditText
         android:id="@+id/RegistrationPasswordInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
         android:hint="Hasło"
+        android:inputType="textPassword"
         android:textColor="#3E4C57"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="453dp" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationMailInput" />
 
     <EditText
         android:id="@+id/RegistrationDuplicatePasswordInput"
         android:layout_width="210dp"
         android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="25dp"
         android:hint="Potwórz hasło"
+        android:inputType="textPassword"
         android:textColor="#3E4C57"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="525dp" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationPasswordInput" />
 
     <Button
         android:id="@+id/SaveRegistration1Button"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/rounded_background"
         android:text="ZAPISZ"
         android:textColor="#3E4C57"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintEnd_toStartOf="@+id/BackRegistration1Button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/RegistrationDuplicatePasswordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationDuplicatePasswordText" />
 
     <Button
         android:id="@+id/BackRegistration1Button"
         android:layout_width="180dp"
         android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_background"
         android:text="POWRÓT"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="647dp" />
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationDuplicatePasswordInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

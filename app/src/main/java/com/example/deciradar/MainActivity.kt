@@ -1,36 +1,37 @@
 package com.example.deciradar
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-/**
- * Main activity of the application, responsible for handling user interactions
- * on the login and sign-up buttons.
- */
-class ActivityMain : AppCompatActivity() {
-    private lateinit var logInButtonEnd: Button
-    private lateinit var signUpButton1: Button
-    /**
-     * Called when the activity is first created. It initializes the UI components
-     * and sets click listeners for the buttons.
-     *
-     * @param savedInstanceState If the activity is being re-initialized after
-     * previously being shut down, this contains the most recent data.
-     */
+
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        logInButtonEnd = findViewById(R.id.logInButtonEnd)
-        signUpButton1 = findViewById(R.id.signUpButton1)
+        val loginButton: Button = findViewById(R.id.logInButtonEnd)
+        val signUpButton: Button = findViewById(R.id.signUpButton1)
+        val emailInput: EditText = findViewById(R.id.LoginEmailInput)
+        val passwordInput: EditText = findViewById(R.id.LoginPasswordInput)
 
-        signUpButton1.setOnClickListener {
-            Toast.makeText(this, "Kliknięto ZAREJESTRUJ SIĘ", Toast.LENGTH_SHORT).show()
+        loginButton.setOnClickListener {
+            val email = emailInput.text.toString()
+            val password = passwordInput.text.toString()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Proszę wypełnić wszystkie pola", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(this, MainViewApp::class.java)
+                startActivity(intent)
+            }
         }
 
-        logInButtonEnd.setOnClickListener {
-            Toast.makeText(this, "Kliknięto ZALOGUJ SIĘ", Toast.LENGTH_SHORT).show()
+        signUpButton.setOnClickListener {
+            val intent = Intent(this, Registration1::class.java)
+            startActivity(intent)
         }
     }
 }
