@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "376463872938",
+    "project_id": "deciradar-aac3a",
+    "storage_bucket": "deciradar-aac3a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376463872938:android:57f3a9b734b379c72f91d3",
+        "android_client_info": {
+          "package_name": "com.example.deciradar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZYSuIRcxTYiZM06nL6Vpkxv44HtVPGOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
