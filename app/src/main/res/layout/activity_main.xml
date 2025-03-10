@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_1"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/logInButtonEnd"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZALOGUJ SIĘ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpButton1"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/signUpButton1"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="124dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAREJESTRUJ SIĘ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/LoginPasswordInput"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/LayoutTextLogin2"
+        android:layout_width="317dp"
+        android:layout_height="59dp"
+        android:text="Witamy w naszej aplikacji do pomiaru natężenia dźwięku!"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.398" />
+
+    <TextView
+        android:id="@+id/loginEmailText"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
+        android:background="@drawable/rounded_background"
+        android:text="EMAIL"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <TextView
+        android:id="@+id/LoginPasswordText"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
+        android:background="@drawable/rounded_background"
+        android:text="HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.633" />
+
+    <EditText
+        android:id="@+id/LoginEmailInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif"
+        android:hint="Email"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutTextLogin2"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/LoginPasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Hasło"
+        android:inputType="textPassword"
+        android:lineSpacingExtra="10sp"
+        android:textColor="#3E4C57"
+        android:textColorHint="#3E4C57"
+        android:textColorLink="#3E4C57"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginEmailInput"
+        app:layout_constraintVertical_bias="0.004" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

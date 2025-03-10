@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_2">
+
+    <TextView
+        android:id="@+id/AdvicesTextView"
+        android:layout_width="392dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="192dp"
+        android:text="WSKAZÓWKI, CO MOŻESZ ZROBIĆ, BY ZADBAĆ O SŁUCH!"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ProbabilityImageView"
+        android:layout_width="384dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="15dp"
+
+        android:rotation="2"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdvicesTextView"
+        app:srcCompat="@drawable/probability" />
+
+    <Button
+        android:id="@+id/drawAdviceButton"
+        android:layout_width="172dp"
+        android:layout_height="58dp"
+        android:background="@drawable/rounded_background"
+        android:text="Wylosuj kolejną"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/BackGuideButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdviceTextView" />
+
+    <TextView
+        android:id="@+id/AdviceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProbabilityImageView" />
+
+    <Button
+        android:id="@+id/BackGuideButton"
+        android:layout_width="172dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWRÓT"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdviceTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

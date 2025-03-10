@@ -1,0 +1,122 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_2">
+
+
+    <TextView
+        android:id="@+id/Registration2Text"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:text="Wybierz godziny trwania trybu nocnego"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.261" />
+
+    <TextView
+        android:id="@+id/StartHourRegistration2Input"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:text="22:00"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EndHourRegistration2Input"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/EndHourRegistration2Input"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:text="08:00"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MoonImageView"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/StartNightModeRegistration2Text"
+        android:layout_width="167dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/rounded_background"
+        android:text="POCZĄTEK"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/EndHourRegistration2Input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MoonImageView" />
+
+    <TextView
+        android:id="@+id/EndNightModeRegistration2Text"
+        android:layout_width="167dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="KONIEC"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/StartHourRegistration2Input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StartNightModeRegistration2Text" />
+
+    <Button
+        android:id="@+id/SaveRegistration2Button"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAPISZ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/BackRegistration2Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EndNightModeRegistration2Text" />
+
+    <Button
+        android:id="@+id/BackRegistration2Button"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWRÓT"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StartHourRegistration2Input" />
+
+    <ImageView
+        android:id="@+id/MoonImageView"
+        android:layout_width="288dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="10dp"
+
+        android:rotation="2"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Registration2Text"
+        app:srcCompat="@drawable/moon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

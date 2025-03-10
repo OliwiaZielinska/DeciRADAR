@@ -1,0 +1,181 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_2">
+
+    <TextView
+        android:id="@+id/Registration1Text"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:text="Wypełnij wymagane pola swoimi danymi"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
+
+    <TextView
+        android:id="@+id/NameText"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="95dp"
+        android:background="@drawable/rounded_background"
+        android:text="IMIĘ"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationNameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Registration1Text" />
+
+    <TextView
+        android:id="@+id/SurnameText"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="NAZWISKO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationSurnameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NameText" />
+
+    <TextView
+        android:id="@+id/RegistrationMailText"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="MAIL"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationMailInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SurnameText" />
+
+    <TextView
+        android:id="@+id/RegistrationPasswordText"
+        android:layout_width="117dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationPasswordInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationMailText" />
+
+    <TextView
+        android:id="@+id/RegistrationDuplicatePasswordText"
+        android:layout_width="117dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWTÓRZ HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/RegistrationDuplicatePasswordInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationPasswordText" />
+
+    <EditText
+        android:id="@+id/RegistrationNameInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Imię"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Registration1Text" />
+
+    <EditText
+        android:id="@+id/RegistrationSurnameInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Nazwisko"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationNameInput" />
+
+    <EditText
+        android:id="@+id/RegistrationMailInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Mail"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationSurnameInput" />
+
+    <EditText
+        android:id="@+id/RegistrationPasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Hasło"
+        android:inputType="textPassword"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationMailInput" />
+
+    <EditText
+        android:id="@+id/RegistrationDuplicatePasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Potwórz hasło"
+        android:inputType="textPassword"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationPasswordInput" />
+
+    <Button
+        android:id="@+id/SaveRegistration1Button"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAPISZ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/BackRegistration1Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationDuplicatePasswordText" />
+
+    <Button
+        android:id="@+id/BackRegistration1Button"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWRÓT"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationDuplicatePasswordInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

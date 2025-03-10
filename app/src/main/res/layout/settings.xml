@@ -1,0 +1,192 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_2">
+
+    <TextView
+        android:id="@+id/Settings1Text"
+        android:layout_width="403dp"
+        android:layout_height="65dp"
+        android:text="Możesz zmienić godziny trwania trybu nocnego"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <TextView
+        android:id="@+id/EndHourSettingsInput"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:text="08:00"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Settings1Text"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+    <TextView
+        android:id="@+id/StartNightModeSettingsText"
+        android:layout_width="164dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background"
+        android:text="POCZĄTEK"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/EndHourSettingsInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Settings1Text" />
+
+    <TextView
+        android:id="@+id/EndNightModeSettingsText"
+        android:layout_width="164dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="KONIEC"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/StartHourSettingsInput"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StartNightModeSettingsText" />
+
+    <TextView
+        android:id="@+id/StartHourSettingsInput"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:text="22:00"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EndHourSettingsInput"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/Settings2Text"
+        android:layout_width="403dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="25dp"
+        android:text="Możesz zmienić swoje hasło"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EndNightModeSettingsText" />
+
+    <EditText
+        android:id="@+id/SettingsPasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:hint="Hasło"
+        android:inputType="textPassword"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Settings2Text" />
+
+
+    <EditText
+        android:id="@+id/SettingsDuplicatePasswordInput"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:hint="Potwórz hasło"
+        android:inputType="textPassword"
+        android:textColor="#3E4C57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsPasswordInput" />
+
+    <TextView
+        android:id="@+id/SettingsPasswordText"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsPasswordInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Settings2Text" />
+
+    <TextView
+        android:id="@+id/SetingsDuplicatePasswordText"
+        android:layout_width="160dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWTÓRZ HASŁO"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsDuplicatePasswordInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsPasswordText" />
+
+    <Button
+        android:id="@+id/BackSettingsButton"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        android:text="POWRÓT"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsDuplicatePasswordInput" />
+
+    <Button
+        android:id="@+id/DeleteAccountSettingsButton"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_background"
+        android:text="USUŃ KONTO"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SaveSettingsButton" />
+
+    <Button
+        android:id="@+id/SaveSettingsButton"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAPISZ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/BackSettingsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SetingsDuplicatePasswordText" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
