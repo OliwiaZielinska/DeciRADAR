@@ -3,4 +3,8 @@
     <string name="err_msg_enter_email">Proszę wprowadzić swój adres mail</string>
     <string name="err_msg_enter_password">Proszę wprowadzić swoje hasło</string>
     <string name="login_successfull">Zalogowano pomyślnie</string>
+    <string name="err_msg_enter_name">Proszę wprowadzić swoje imię</string>
+    <string name="err_msg_enter_surname">Proszę wprowadzić swoje nazwisko</string>
+    <string name="err_msg_enter_confirm_password">Proszę powtórzyć jeszcze raz hasło</string>
+    <string name="err_msg_passwords_do_not_match">Hasła nie są identyczne</string>
 </resources>

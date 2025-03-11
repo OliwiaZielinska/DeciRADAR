@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.261" />
 
     <TextView
-        android:id="@+id/StartHourRegistration2Input"
+        android:id="@+id/EndHourRegistration2Input"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="25dp"
@@ -32,11 +32,11 @@
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EndHourRegistration2Input"
+        app:layout_constraintTop_toBottomOf="@+id/StartHourRegistration2Input"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/EndHourRegistration2Input"
+        android:id="@+id/StartHourRegistration2Input"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="35dp"
@@ -60,7 +60,7 @@
         android:textColor="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/EndHourRegistration2Input"
+        app:layout_constraintEnd_toStartOf="@+id/StartHourRegistration2Input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MoonImageView" />
 
@@ -75,7 +75,7 @@
         android:textColor="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/StartHourRegistration2Input"
+        app:layout_constraintEnd_toStartOf="@+id/EndHourRegistration2Input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/StartNightModeRegistration2Text" />
 
@@ -103,7 +103,7 @@
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/StartHourRegistration2Input" />
+        app:layout_constraintTop_toBottomOf="@+id/EndHourRegistration2Input" />
 
     <ImageView
         android:id="@+id/MoonImageView"
