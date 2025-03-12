@@ -1,16 +1,24 @@
 package com.example.deciradar
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.deciradar.CloudFirestore.Measurements
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainViewApp : AppCompatActivity() {
     private lateinit var soundMeter: SoundMeter
@@ -40,6 +48,10 @@ class MainViewApp : AppCompatActivity() {
                 }
             })
         }
+        val saveImageView: ImageView = findViewById(R.id.SaveImageView)
+        saveImageView.setOnClickListener {
+            saveDataToFirestore()
+        }
 
         statisticsButton.setOnClickListener {
             val intent = Intent(this, Statistics::class.java)
@@ -67,6 +79,7 @@ class MainViewApp : AppCompatActivity() {
             finish()
         }
     }
+
     private fun checkMicrophonePermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -84,6 +97,36 @@ class MainViewApp : AppCompatActivity() {
             true
         }
     }
+
+    private fun saveDataToFirestore() {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val currentDate = dateFormat.format(Date())
+        val currentTime = timeFormat.format(Date())
+        val soundIntensity = decibelTextView.text.toString()
+
+        val userID = FirebaseAuth.getInstance().currentUser?.uid ?: "Unknown"
+
+        val measurement = Measurements(
+            userID = userID,
+            date = currentDate,
+            hour = currentTime,
+            soundIntensity = soundIntensity
+        )
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("measurements")
+            .add(measurement)
+            .addOnSuccessListener { documentReference ->
+                println("DocumentSnapshot added with ID: ${documentReference.id}")
+                Toast.makeText(this, "Wynik został zapisany", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                println("Error adding document: $e")
+                Toast.makeText(this, "Błąd zapisu danych", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         soundMeter.stop()

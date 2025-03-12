@@ -22,38 +22,48 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.281" />
 
+
     <ImageView
         android:id="@+id/VolumeImageView"
         android:layout_width="93dp"
         android:layout_height="86dp"
-        android:layout_marginTop="8dp"
-        android:rotation="2"
+        android:layout_marginStart="50dp"
 
+        android:rotation="2"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346"
+        app:layout_constraintVertical_bias="0.353"
         app:srcCompat="@drawable/volume" />
 
     <TextView
         android:id="@+id/valueOfDecibelsText"
         android:layout_width="110dp"
         android:layout_height="45dp"
+        android:layout_marginStart="15dp"
         android:background="@drawable/rounded_background"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VolumeImageView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.365" />
 
+    <ImageView
+        android:id="@+id/SaveImageView"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="65dp"
+        android:rotation="2"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/valueOfDecibelsText"
+        app:layout_constraintTop_toBottomOf="@+id/MainViewAppText"
+        app:srcCompat="@drawable/save" />
 
     <Button
         android:id="@+id/StatisticsButton"
