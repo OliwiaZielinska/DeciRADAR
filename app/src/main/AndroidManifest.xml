@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
@@ -74,6 +75,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <service
+            android:name=".SoundMonitorService"
+            android:foregroundServiceType="microphone"
+            android:exported="false"
+            tools:ignore="ForegroundServicePermission" />
     </application>
+
 
 </manifest>

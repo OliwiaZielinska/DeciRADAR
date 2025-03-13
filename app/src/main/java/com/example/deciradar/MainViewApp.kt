@@ -36,6 +36,13 @@ class MainViewApp : AppCompatActivity() {
         decibelTextView = findViewById(R.id.valueOfDecibelsText)
         soundMeter = SoundMeter()
 
+        val serviceIntent = Intent(this, SoundMonitorService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent)
+        } else {
+            startService(serviceIntent)
+        }
+
         if (checkMicrophonePermission()) {
             soundMeter.start()
             val handler = Handler(Looper.getMainLooper())
