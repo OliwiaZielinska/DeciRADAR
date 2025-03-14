@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/layout_2">
 
+
     <TextView
         android:id="@+id/MainViewAppText"
         android:layout_width="387dp"
@@ -20,8 +21,7 @@
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
-
+        app:layout_constraintVertical_bias="0.265" />
 
     <ImageView
         android:id="@+id/VolumeImageView"
@@ -29,7 +29,6 @@
         android:layout_height="86dp"
         android:layout_marginStart="50dp"
 
-        android:rotation="2"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +55,11 @@
         android:id="@+id/SaveImageView"
         android:layout_width="40dp"
         android:layout_height="45dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="65dp"
-        android:rotation="2"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.394"
         app:layout_constraintStart_toEndOf="@+id/valueOfDecibelsText"
         app:layout_constraintTop_toBottomOf="@+id/MainViewAppText"
         app:srcCompat="@drawable/save" />
