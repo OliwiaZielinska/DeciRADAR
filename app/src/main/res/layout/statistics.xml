@@ -8,18 +8,41 @@
 
     <TextView
         android:id="@+id/StatisticsTextView"
-        android:layout_width="401dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="184dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
         android:text="TWOJE STATYSTYKI"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spinner_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/StatisticsTextView" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statisticsRecyclerView"
+        android:layout_width="414dp"
+        android:layout_height="318dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/BackStatisticsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerFilter"
+        app:layout_constraintVertical_bias="0.393" />
 
     <Button
         android:id="@+id/BackStatisticsButton"
@@ -31,8 +54,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        android:layout_marginBottom="16dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

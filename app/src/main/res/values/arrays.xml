@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="filter_options">
+        <item>Dzień</item>
+        <item>Miesiąc</item>
+        <item>Rok</item>
+    </string-array>
+</resources>
