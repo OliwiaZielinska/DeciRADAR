@@ -15,9 +15,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import java.util.Calendar
-
+/**
+ * Klasa Registration2 odpowiada za drugi etap rejestracji użytkownika.
+ * Umożliwia wybór godzin trybu nocnego oraz zapisanie danych użytkownika do Firestore.
+ */
 class Registration2 : BaseActivity() {
 
+    // Elementy interfejsu użytkownika
     private lateinit var startHourTextView: TextView
     private lateinit var endHourTextView: TextView
     private lateinit var startNightModeTextView: TextView
@@ -26,15 +30,20 @@ class Registration2 : BaseActivity() {
     private lateinit var backButton: Button
     private lateinit var dbOperations: FirestoreDatabaseOperations
     private val database = Firebase.firestore
-
+    /**
+     * Metoda wywoływana przy tworzeniu aktywności.
+     * Inicjalizuje elementy interfejsu oraz obsługuje ich zdarzenia.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registration_2)
+        // Pobranie danych przekazanych z poprzedniego ekranu rejestracji
         val name = intent.getStringExtra("name")
         val surname = intent.getStringExtra("surname")
         val mail = intent.getStringExtra("mail")
         val password = intent.getStringExtra("password")
 
+        // Inicjalizacja widoków
         startHourTextView = findViewById(R.id.EndHourRegistration2Input)
         endHourTextView = findViewById(R.id.StartHourRegistration2Input)
         startNightModeTextView = findViewById(R.id.StartNightModeRegistration2Text)
@@ -42,10 +51,10 @@ class Registration2 : BaseActivity() {
         saveButton = findViewById(R.id.SaveRegistration2Button)
         backButton = findViewById(R.id.BackRegistration2Button)
         dbOperations = FirestoreDatabaseOperations(database)
-
+        // Obsługa wyboru godziny
         startHourTextView.setOnClickListener { showTimePickerDialog(startHourTextView) }
         endHourTextView.setOnClickListener { showTimePickerDialog(endHourTextView) }
-
+        // Obsługa przycisków
         saveButton.setOnClickListener {
             registerUser(
                 name.toString(),
@@ -63,7 +72,10 @@ class Registration2 : BaseActivity() {
             finish()
         }
     }
-
+    /**
+     * Wyświetla okno dialogowe do wyboru godziny.
+     * @param textView TextView, w którym wyświetlona zostanie wybrana godzina.
+     */
     private fun showTimePickerDialog(textView: TextView) {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -76,7 +88,15 @@ class Registration2 : BaseActivity() {
 
         timePickerDialog.show()
     }
-
+    /**
+     * Rejestruje nowego użytkownika w Firebase Authentication oraz zapisuje jego dane w Firestore.
+     * @param name Imię użytkownika
+     * @param surname Nazwisko użytkownika
+     * @param mail Adres e-mail użytkownika
+     * @param password Hasło użytkownika
+     * @param startHourTextView Godzina rozpoczęcia trybu nocnego
+     * @param endHourTextView Godzina zakończenia trybu nocnego
+     */
     private fun registerUser(
         name: String,
         surname: String,
@@ -104,6 +124,7 @@ class Registration2 : BaseActivity() {
                     showErrorSnackBar(task.exception!!.message.toString(), true)
                 }
             }
+        // Tworzenie nowego obiektu użytkownika i zapis w Firestore
         val user = User(
             name,
             surname,
@@ -116,7 +137,11 @@ class Registration2 : BaseActivity() {
             dbOperations.addUser(mail, user) // Użycie dbOperations
         }
     }
-
+    /**
+     * Hashuje hasło użytkownika przy użyciu algorytmu SHA-256.
+     * @param password Hasło do zahaszowania.
+     * @return Zhashowane hasło jako ciąg znaków w formacie szesnastkowym.
+     */
     private fun hashPassword(password: String): String {
         val messageDigest = MessageDigest.getInstance("SHA-256")
         val hashedBytes = messageDigest.digest(password.toByteArray())

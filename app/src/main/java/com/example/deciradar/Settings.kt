@@ -14,8 +14,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
-
+/**
+ * Klasa `Settings` odpowiada za zarządzanie ustawieniami użytkownika,
+ * w tym konfiguracją trybu nocnego, zmianą hasła oraz usuwaniem konta.
+ */
 class Settings : BaseActivity() {
+    // Elementy interfejsu użytkownika
     private lateinit var settings1Text: TextView
     private lateinit var startNightModeSettingsText: TextView
     private lateinit var endNightModeSettingsText: TextView
@@ -33,11 +37,15 @@ class Settings : BaseActivity() {
     val db = FirebaseFirestore.getInstance()
     private val dbOperations = FirestoreDatabaseOperations(db)
 
-
+    /**
+     * Metoda wywoływana przy tworzeniu aktywności.
+     * Inicjalizuje interfejs użytkownika oraz ustawia obsługę przycisków.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
         val uID = intent.getStringExtra("userID").toString()
+        // Inicjalizacja widoków
         settings1Text = findViewById(R.id.Settings1Text)
         startNightModeSettingsText = findViewById(R.id.StartNightModeSettingsText)
         endNightModeSettingsText = findViewById(R.id.EndNightModeSettingsText)
@@ -51,11 +59,12 @@ class Settings : BaseActivity() {
         backSettingsButton = findViewById(R.id.BackSettingsButton)
         saveSettingsButton = findViewById(R.id.SaveSettingsButton)
         deleteAccountSettingsButton = findViewById(R.id.DeleteAccountSettingsButton)
-
+        // Pobranie danych użytkownika
         setData()
+        // Obsługa wyboru godziny
         startHourSettingsInput.setOnClickListener { showTimePickerDialog(startHourSettingsInput) }
         endHourSettingsInput.setOnClickListener { showTimePickerDialog(endHourSettingsInput) }
-
+        // Obsługa przycisków
         saveSettingsButton.setOnClickListener { saveSettings() }
         deleteAccountSettingsButton.setOnClickListener { deleteAccount() }
 
@@ -65,7 +74,11 @@ class Settings : BaseActivity() {
             finish()
         }
     }
-
+    /**
+     * Wyświetla okno dialogowe do wyboru godziny.
+     *
+     * @param textView TextView, w którym wyświetlona zostanie wybrana godzina.
+     */
     private fun showTimePickerDialog(textView: TextView) {
         val currentTime = textView.text.toString()
         val hour: Int
@@ -87,7 +100,9 @@ class Settings : BaseActivity() {
         )
         timePickerDialog.show()
     }
-
+    /**
+     * Pobiera dane użytkownika z Firestore i ustawia odpowiednie wartości w polach ustawień.
+     */
     private fun setData() {
         val userId = FirebaseAuth.getInstance().currentUser!!.email
         val ref = db.collection("users").document(userId.toString())
@@ -103,7 +118,10 @@ class Settings : BaseActivity() {
             Toast.makeText(this, "Wystąpił błąd!", Toast.LENGTH_SHORT).show()
         }
     }
-
+    /**
+     * Zapisuje nowe ustawienia użytkownika do bazy Firestore.
+     * Weryfikuje poprawność hasła i aktualizuje dane.
+     */
     private fun saveSettings() {
         val startHourSettingsInputValue = startHourSettingsInput.text.toString()
         val endHourSettingsInputValue = endHourSettingsInput.text.toString()
@@ -156,7 +174,9 @@ class Settings : BaseActivity() {
             Toast.makeText(this, "Błąd pobierania danych użytkownika!", Toast.LENGTH_SHORT).show()
         }
     }
-
+    /**
+     * Usuwa konto użytkownika oraz powiązane dane z Firestore.
+     */
     private fun deleteAccount() {
         val userId = FirebaseAuth.getInstance().currentUser!!.email
         GlobalScope.launch(Dispatchers.Main) {
@@ -166,6 +186,9 @@ class Settings : BaseActivity() {
         startActivity(intent)
         finish()
     }
+    /**
+     * Przekierowuje użytkownika do ekranu głównego aplikacji z nowymi danymi.
+     */
     private fun openActivity(
         startHourSettings: String,
         endHourSettings: String,
@@ -179,6 +202,12 @@ class Settings : BaseActivity() {
         intent.putExtra("startNightMode", startHourSettings)
         startActivity(intent)
     }
+    /**
+     * Hashuje hasło użytkownika przy użyciu algorytmu SHA-256.
+     *
+     * @param password Hasło do zahaszowania.
+     * @return Zhashowane hasło jako ciąg znaków w formacie szesnastkowym.
+     */
     private fun hashPassword(password: String): String {
         val messageDigest = MessageDigest.getInstance("SHA-256")
         val hashedBytes = messageDigest.digest(password.toByteArray())

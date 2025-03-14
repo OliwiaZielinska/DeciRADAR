@@ -7,4 +7,6 @@
     <string name="err_msg_enter_surname">Proszę wprowadzić swoje nazwisko</string>
     <string name="err_msg_enter_confirm_password">Proszę powtórzyć jeszcze raz hasło</string>
     <string name="err_msg_passwords_do_not_match">Hasła nie są identyczne</string>
+    <string name="err_msg_invalid_email">Niepoprawny adres e-mail</string>
+
 </resources>

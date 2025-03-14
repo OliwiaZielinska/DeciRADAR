@@ -7,7 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
+/**
+ * Aktywność rejestracji użytkownika - pierwsza część.
+ * Pozwala użytkownikowi na wprowadzenie podstawowych danych, takich jak imię, nazwisko, email i hasło.
+ */
 class Registration1 : BaseActivity() {
     private lateinit var nameInput: TextView
     private lateinit var surnameInput: TextView
@@ -16,7 +19,10 @@ class Registration1 : BaseActivity() {
     private lateinit var confirmPasswordInput: TextView
     private lateinit var saveButton: Button
     private lateinit var backButton: Button
-
+    /**
+     * Inicjalizacja aktywności.
+     * Ustawia widok i przypisuje elementy interfejsu użytkownika do zmiennych.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registration_1)
@@ -39,6 +45,12 @@ class Registration1 : BaseActivity() {
             finish()
         }
     }
+    /**
+     * Walidacja danych wprowadzonych przez użytkownika.
+     * Sprawdza, czy wszystkie pola są wypełnione oraz czy hasła są identyczne.
+     *
+     * @return true, jeśli dane są poprawne, false w przeciwnym razie.
+     */
     private fun validateRegisterDetails(): Boolean {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
@@ -72,6 +84,10 @@ class Registration1 : BaseActivity() {
         }
         return true
     }
+    /**
+     * Rozpoczyna proces rejestracji użytkownika.
+     * Jeśli dane są poprawne, przechodzi do drugiej części rejestracji.
+     */
     private fun registerUser() {
         if (validateRegisterDetails()) {
             val name = nameInput.text.toString().trim()
@@ -87,6 +103,14 @@ class Registration1 : BaseActivity() {
             )
         }
     }
+    /**
+     * Przekazuje wprowadzone dane użytkownika do kolejnej aktywności rejestracji.
+     *
+     * @param name Imię użytkownika
+     * @param surname Nazwisko użytkownika
+     * @param mailInput Adres e-mail użytkownika
+     * @param passwordInput Hasło użytkownika
+     */
     private fun openActivity(
         name: String,
         surname: String,

@@ -19,15 +19,24 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
-
+/**
+ * Klasa MainViewApp reprezentuje główny ekran aplikacji,
+ * w którym użytkownik może monitorować poziom dźwięku w decybelach,
+ * zapisywać wyniki do bazy danych oraz przechodzić do innych sekcji aplikacji.
+ */
 class MainViewApp : AppCompatActivity() {
-    private lateinit var soundMeter: SoundMeter
-    private lateinit var decibelTextView: TextView
-
+    private lateinit var soundMeter: SoundMeter // Obiekt do mierzenia poziomu dźwięku
+    private lateinit var decibelTextView: TextView // Pole tekstowe wyświetlające poziom dźwięku
+    /**
+     * Metoda onCreate inicjalizuje interfejs użytkownika, rozpoczyna monitorowanie dźwięku
+     * oraz ustawia obsługę kliknięć dla różnych przycisków nawigacyjnych.
+     *
+     * @param savedInstanceState zapisany stan instancji aktywności (jeśli istnieje)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view_app)
-
+        // Inicjalizacja przycisków nawigacyjnych
         val statisticsButton: Button = findViewById(R.id.StatisticsButton)
         val mapsButton: Button = findViewById(R.id.MapsButton)
         val guideButton: Button = findViewById(R.id.GuideButton)
@@ -35,14 +44,14 @@ class MainViewApp : AppCompatActivity() {
         val logOutButton: Button = findViewById(R.id.LogOutButton)
         decibelTextView = findViewById(R.id.valueOfDecibelsText)
         soundMeter = SoundMeter()
-
+        // Uruchomienie usługi monitorowania dźwięku w tle
         val serviceIntent = Intent(this, SoundMonitorService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(serviceIntent)
         } else {
             startService(serviceIntent)
         }
-
+        // Sprawdzenie uprawnień do mikrofonu i rozpoczęcie pomiaru dźwięku
         if (checkMicrophonePermission()) {
             soundMeter.start()
             val handler = Handler(Looper.getMainLooper())
@@ -51,15 +60,16 @@ class MainViewApp : AppCompatActivity() {
                     val dbLevel = soundMeter.getAmplitude()
                     val roundedDbLevel = String.format("%.3f", dbLevel)
                     decibelTextView.text = "$roundedDbLevel"
-                    handler.postDelayed(this, 500)
+                    handler.postDelayed(this, 500) // Aktualizacja co 500 ms
                 }
             })
         }
+        // Obsługa zapisu danych do Firestore
         val saveImageView: ImageView = findViewById(R.id.SaveImageView)
         saveImageView.setOnClickListener {
             saveDataToFirestore()
         }
-
+        // Obsługa nawigacji między ekranami
         statisticsButton.setOnClickListener {
             val intent = Intent(this, Statistics::class.java)
             startActivity(intent)
@@ -86,7 +96,12 @@ class MainViewApp : AppCompatActivity() {
             finish()
         }
     }
-
+    /**
+     * Metoda sprawdzająca, czy użytkownik udzielił aplikacji dostępu do mikrofonu.
+     * Jeśli uprawnienia nie zostały nadane, wyświetla prośbę o ich przyznanie.
+     *
+     * @return true, jeśli dostęp do mikrofonu jest przyznany, w przeciwnym razie false.
+     */
     private fun checkMicrophonePermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -104,12 +119,15 @@ class MainViewApp : AppCompatActivity() {
             true
         }
     }
-
+    /**
+     * Metoda zapisująca dane pomiarowe (poziom dźwięku) do bazy Firestore.
+     * Pobiera aktualną datę, godzinę oraz poziom dźwięku i przesyła je do bazy danych.
+     */
     private fun saveDataToFirestore() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        val currentDate = dateFormat.format(Date())
-        val currentTime = timeFormat.format(Date())
+        val currentDate = dateFormat.format(Date()) // Pobranie aktualnej daty
+        val currentTime = timeFormat.format(Date()) // Pobranie aktualnej godziny
         val soundIntensity = decibelTextView.text.toString()
 
         val userID = FirebaseAuth.getInstance().currentUser?.uid ?: "Unknown"
@@ -134,6 +152,10 @@ class MainViewApp : AppCompatActivity() {
             }
     }
 
+    /**
+     * Metoda onDestroy jest wywoływana podczas zamykania aktywności.
+     * Zatrzymuje pomiar dźwięku, aby zwolnić zasoby mikrofonu.
+     */
     override fun onDestroy() {
         super.onDestroy()
         soundMeter.stop()

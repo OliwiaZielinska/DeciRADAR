@@ -18,13 +18,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
-
+/**
+ * Usługa monitorowania dźwięku, działająca w tle.
+ * Zapisuje pomiary hałasu w bazie Firestore w określonych odstępach czasu.
+ */
 class SoundMonitorService : Service() {
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var soundMeter: SoundMeter
     private var userNightStart: String = "22:00" // Domyślne godziny, zmieniane po pobraniu z bazy
     private var userNightEnd: String = "06:00"
-
+    /**
+     * Metoda wywoływana przy utworzeniu usługi. Inicjalizuje pomiary i pobiera ustawienia trybu nocnego.
+     */
     @RequiresPermission(Manifest.permission.RECORD_AUDIO)
     override fun onCreate() {
         super.onCreate()
@@ -37,7 +42,9 @@ class SoundMonitorService : Service() {
         // Uruchomienie rejestrowania dźwięku
         startMonitoring()
     }
-
+    /**
+     * Pobiera z Firestore godziny trybu nocnego ustawione przez użytkownika.
+     */
     private fun fetchUserNightMode() {
         val userID = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val db = FirebaseFirestore.getInstance()
@@ -50,7 +57,9 @@ class SoundMonitorService : Service() {
                 }
             }
     }
-
+    /**
+     * Rozpoczyna monitorowanie dźwięku i zapisuje dane w zależności od pory dnia.
+     */
     private fun startMonitoring() {
         handler.post(object : Runnable {
             override fun run() {
@@ -71,7 +80,9 @@ class SoundMonitorService : Service() {
             }
         })
     }
-
+    /**
+     * Zapisuje zmierzoną intensywność dźwięku w bazie Firestore.
+     */
     private fun saveDataToFirestore() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -92,21 +103,34 @@ class SoundMonitorService : Service() {
         db.collection("measurements")
             .add(measurement)
     }
-
+    /**
+     * Sprawdza, czy aktualny czas mieści się w zakresie trybu nocnego.
+     * @param currentTime Aktualny czas w formacie HH:mm
+     * @return True, jeśli jest tryb nocny, w przeciwnym razie False.
+     */
     private fun isNightMode(currentTime: String): Boolean {
         return currentTime >= userNightStart || currentTime < userNightEnd
     }
 
+    /**
+     * Pobiera aktualny czas w formacie HH:mm.
+     * @return String z aktualnym czasem.
+     */
     private fun getCurrentTime(): String {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return timeFormat.format(Date())
     }
-
+    /**
+     * Uruchamia usługę w trybie pierwszoplanowym z powiadomieniem.
+     */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground(1, createNotification())
         return START_STICKY
     }
-
+    /**
+     * Tworzy powiadomienie dla usługi monitorowania dźwięku.
+     * @return Obiekt Notification
+     */
     private fun createNotification(): Notification {
         val channelId = "SoundMonitorServiceChannel"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -124,13 +148,17 @@ class SoundMonitorService : Service() {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .build()
     }
-
+    /**
+     * Zatrzymuje usługę i usuwa zarejestrowane zadania.
+     */
     override fun onDestroy() {
         super.onDestroy()
         soundMeter.stop()
         handler.removeCallbacksAndMessages(null)
     }
-
+    /**
+     * Ta usługa nie obsługuje komunikacji z innymi komponentami, dlatego zwraca null.
+     */
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
