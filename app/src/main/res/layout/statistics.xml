@@ -45,16 +45,31 @@
         app:layout_constraintVertical_bias="0.393" />
 
     <Button
+        android:id="@+id/ChartStatisticsButton"
+        android:layout_width="172dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_background"
+        android:text="WYKRES"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/BackStatisticsButton"
         android:layout_width="172dp"
         android:layout_height="58dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_background"
         android:text="POWRÓT"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

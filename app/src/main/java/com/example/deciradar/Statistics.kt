@@ -1,4 +1,5 @@
 package com.example.deciradar
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,7 @@ class Statistics : AppCompatActivity() {
     private lateinit var spinnerFilter: Spinner
     private lateinit var auth: FirebaseAuth
     private val db = FirebaseFirestore.getInstance()
+    private var userId: String? = null  // Identyfikator użytkownika
 
     /**
      * Metoda onCreate inicjalizuje widok statystyk oraz komponenty UI.
@@ -38,6 +40,7 @@ class Statistics : AppCompatActivity() {
         setContentView(R.layout.statistics)
 
         auth = FirebaseAuth.getInstance()
+        userId = intent.getStringExtra("uID") ?: auth.currentUser?.uid // Pobranie przekazanego identyfikatora użytkownika
 
         // Inicjalizacja RecyclerView
         recyclerView = findViewById(R.id.statisticsRecyclerView)
@@ -64,8 +67,16 @@ class Statistics : AppCompatActivity() {
         // Przycisk powrotu do głównego widoku aplikacji
         findViewById<Button>(R.id.BackStatisticsButton).setOnClickListener {
             val intent = Intent(this, MainViewApp::class.java)
+            intent.putExtra("uID", userId) // Przekazanie uID do głównej aktywności
             startActivity(intent)
             finish()
+        }
+
+        // Przycisk do przejścia do ChartActivity
+        findViewById<Button>(R.id.ChartStatisticsButton).setOnClickListener {
+            val intent = Intent(this, ChartActivity::class.java)
+            intent.putExtra("uID", userId) // Przekazanie uID do ChartActivity
+            startActivity(intent)
         }
 
         fetchFirestoreData("Wszystko") // Domyślne pobranie wszystkich danych
@@ -76,12 +87,12 @@ class Statistics : AppCompatActivity() {
      * @param filter Wybrany filtr czasowy (np. "Tydzień", "Miesiąc", "Rok" lub "Wszystko").
      */
     private fun fetchFirestoreData(filter: String) {
-        val userId = auth.currentUser?.uid ?: return
+        val userId = this.userId ?: return
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         db.collection("measurements")
-            .whereEqualTo("userID", userId)
+            .whereEqualTo("userID", userId) // Pobranie danych tylko dla aktualnego użytkownika
             .get()
             .addOnSuccessListener { documents ->
                 soundDataList.clear()
@@ -144,7 +155,7 @@ class Statistics : AppCompatActivity() {
     }
 
     /**
-     * Formatuje godzinę do formatu "gg:mm", usuwając sekundy.
+     * Formatuje godzinę do formatu "HH:mm", usuwając sekundy.
      * @param hour Godzina w formacie "HH:mm:ss".
      * @return Sformatowana godzina w formacie "HH:mm".
      */
