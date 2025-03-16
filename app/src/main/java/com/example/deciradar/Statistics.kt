@@ -103,6 +103,10 @@ class Statistics : AppCompatActivity() {
 
                     if (date.isNotEmpty() && hour.isNotEmpty() && soundIntensity.isNotEmpty()) {
                         try {
+                            val intensityValue = soundIntensity.replace(",", ".").toDoubleOrNull()
+                            if (intensityValue == null || intensityValue.isInfinite()) {
+                                continue // pominięcie wartości infinite
+                            }
                             val measurementDate = dateFormat.parse(date)
                             if (measurementDate != null) {
                                 val shouldAdd = when (filter) {

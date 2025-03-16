@@ -36,13 +36,28 @@
         android:id="@+id/BackChartButton"
         android:layout_width="172dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_background"
         android:text="POWRÓT"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/SaveChartButton"
+        android:layout_width="172dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZAPISZ"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

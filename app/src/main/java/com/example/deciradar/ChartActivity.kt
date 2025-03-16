@@ -1,9 +1,13 @@
 package com.example.deciradar
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.provider.MediaStore
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.Legend
@@ -14,6 +18,9 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,7 +47,70 @@ class ChartActivity : AppCompatActivity() {
         findViewById<android.widget.Button>(R.id.BackChartButton).setOnClickListener {
             finish()
         }
+
+        findViewById<Button>(R.id.SaveChartButton).setOnClickListener {
+            showSaveOptions()
+        }
     }
+
+    /**
+     * Wyświetla okno dialogowe umożliwiające wybór formatu zapisu wykresu.
+     */
+    private fun showSaveOptions() {
+        val options = arrayOf("PNG", "JPEG")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Wybierz format zapisu")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> saveChart("png")
+                    1 -> saveChart("jpeg")
+                }
+            }
+            .show()
+    }
+    /**
+     * Zapisuje wykres w wybranym formacie na urządzeniu.
+     * @param format Format pliku ("png" lub "jpeg").
+     */
+    private fun saveChart(format: String) {
+        val bitmap = barChart.chartBitmap
+        val fileName = "chart_${System.currentTimeMillis()}.$format"
+        val file = File(getExternalFilesDir(null), fileName)
+
+        try {
+            val fos = FileOutputStream(file)
+            when (format) {
+                "png" -> bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+                "jpeg" -> bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            }
+            fos.flush()
+            fos.close()
+            saveToGallery(file, format)
+            Log.d("ChartActivity", "Wykres zapisano w: ${file.absolutePath}")
+        } catch (e: Exception) {
+            Log.e("ChartActivity", "Błąd zapisu wykresu", e)
+        }
+    }
+    /**
+     * Zapisuje plik wykresu do galerii urządzenia.
+     * @param file Obiekt pliku wykresu.
+     * @param format Format pliku (PNG lub JPEG).
+     */
+    private fun saveToGallery(file: File, format: String) {
+        val values = android.content.ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, file.name)
+            put(MediaStore.Images.Media.MIME_TYPE, "image/$format")
+            put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/DeciRadar")
+        }
+        contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)?.let { uri ->
+            contentResolver.openOutputStream(uri)?.use { outputStream ->
+                FileInputStream(file).use { inputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+        }
+    }
+
 
     /**
      * Pobiera dane z Firestore i generuje wykres na podstawie pomiarów dźwięku.
