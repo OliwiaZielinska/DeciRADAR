@@ -6,19 +6,44 @@
     android:layout_height="match_parent"
     android:background="@drawable/layout_2">
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="401dp"
+        android:layout_height="462dp"
+        app:layout_constraintBottom_toTopOf="@+id/returnFromMapsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872"
+        tools:context=".MapsActivity" />
 
     <Button
         android:id="@+id/returnFromMapsButton"
         android:layout_width="131dp"
         android:layout_height="54dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/rounded_background"
         android:text="POWRÓT"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/reportNoiseButton"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
+        android:background="@drawable/rounded_background"
+        android:text="ZGŁOŚ HAŁAS"
+        android:textAlignment="center"
+        android:textColor="#3E4C57"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/returnFromMapsButton"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintTop_toBottomOf="@+id/map" />
 </androidx.constraintlayout.widget.ConstraintLayout>

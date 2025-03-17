@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DeciRADAR"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="API_KEYS" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -75,7 +82,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ChartActivity"
             android:exported="true">
@@ -86,10 +92,9 @@
 
         <service
             android:name=".SoundMonitorService"
-            android:foregroundServiceType="microphone"
             android:exported="false"
+            android:foregroundServiceType="microphone"
             tools:ignore="ForegroundServicePermission" />
     </application>
-
 
 </manifest>
