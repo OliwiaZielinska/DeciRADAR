@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 /**
  * Klasa MainActivity obsługuje ekran logowania użytkownika.
@@ -92,7 +93,12 @@ class MainActivity : BaseActivity() {
                         goToMainActivity(email)
                         finish()
                     } else {
-                        showErrorSnackBar(task.exception!!.message.toString(), true)
+                        // Jeśli wystąpił błąd uwierzytelniania, przechwytujemy wyjątek i wyświetlamy komunikat.
+                        if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                            showErrorSnackBar("Podany login lub hasło są nieprawidłowe.", true)
+                        } else {
+                            showErrorSnackBar("Wystąpił błąd: ${task.exception?.message}", true)
+                        }
                     }
                 }
         }

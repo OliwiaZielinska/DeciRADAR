@@ -1,11 +1,11 @@
 package com.example.deciradar
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 /**
  * Adapter dla RecyclerView, który wyświetla listę danych dotyczących pomiarów dźwięku.
  * @param soundDataList Lista obiektów SoundData do wyświetlenia.
@@ -17,7 +17,7 @@ class SoundDataAdapter(private val soundDataList: List<SoundData>) :
      * ViewHolder przechowujący widoki pojedynczego elementu listy.
      * @param view Widok pojedynczego elementu listy.
      */
-    class SoundViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class SoundViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val dateTextView: TextView = view.findViewById(R.id.textDate)
         val hourTextView: TextView = view.findViewById(R.id.textHour)
         val soundIntensityTextView: TextView = view.findViewById(R.id.textSoundIntensity)
@@ -44,7 +44,23 @@ class SoundDataAdapter(private val soundDataList: List<SoundData>) :
         val data = soundDataList[position]
         holder.dateTextView.text = "Data: ${data.date}"
         holder.hourTextView.text = "Godzina: ${data.hour}"
-        holder.soundIntensityTextView.text = "Natężenie dźwięku: ${formatSoundIntensity(data.soundIntensity)}"
+        val formattedIntensity = formatSoundIntensity(data.soundIntensity)
+        holder.soundIntensityTextView.text = "Natężenie dźwięku: $formattedIntensity"
+
+        // Ustawienie koloru tła na podstawie wartości natężenia dźwięku.
+        try {
+            val intensityValue = formattedIntensity.toDouble()
+            if (intensityValue < 85) {
+                // Zielony odcień dla wartości poniżej 85 dB
+                holder.view.setBackgroundColor(Color.parseColor("#A5D6A7"))
+            } else {
+                // Czerwony odcień dla wartości 85 dB i powyżej
+                holder.view.setBackgroundColor(Color.parseColor("#EF9A9A"))
+            }
+        } catch (e: Exception) {
+            // W razie błędu parsowania ustaw domyślne tło
+            holder.view.setBackgroundColor(Color.LTGRAY)
+        }
     }
 
     /**
