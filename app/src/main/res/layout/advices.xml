@@ -10,14 +10,15 @@
         android:id="@+id/AdvicesTextView"
         android:layout_width="392dp"
         android:layout_height="79dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="176dp"
+        android:gravity="center_horizontal"
         android:text="WSKAZÓWKI, CO MOŻESZ ZROBIĆ, BY ZADBAĆ O SŁUCH!"
         android:textAlignment="center"
         android:textColor="#3E4C57"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
