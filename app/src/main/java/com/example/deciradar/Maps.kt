@@ -17,49 +17,38 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import org.json.JSONArray
-import org.json.JSONObject
-import androidx.core.content.edit
+import com.google.firebase.firestore.FirebaseFirestore
 
-/**
- * Klasa służąca do wyświetlenia mapy i zgłaszania poziomu hałasu w poszczególnych lokalizacjach.
- * Aktywność pobiera lokalizację użytkownika i wyświetla mapę z markerami dla zgłoszonych poziomów hałasu.
- */
 class Maps : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var returnFromMapsButton: Button
     private lateinit var reportNoiseButton: Button
+    private lateinit var firestore: FirebaseFirestore
 
     companion object {
         private const val LOCATION_REQUEST_CODE = 1
-        private const val PREFS_NAME = "NoiseReports"
-        private const val KEY_REPORTS = "reports"
     }
 
-    /**
-     * Metoda wywoływana podczas tworzenia aktywności.
-     * Inicjalizuje aktywność, ustawia mapę, usługi lokalizacji oraz przyciski.
-     * @param savedInstanceState Zapisany stan aktywności, jeśli istnieje.
-     */
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.maps)
 
-        // Przycisk powrotu do okna głównego
+        // Inicjalizacja Firestore
+        firestore = FirebaseFirestore.getInstance()
+
+        // Przycisk powrotu
         returnFromMapsButton = findViewById(R.id.returnFromMapsButton)
         returnFromMapsButton.setOnClickListener { finish() }
 
-        // Przycisk zgłaszania hałasu
+        // Przycisk zgłoszenia hałasu
         reportNoiseButton = findViewById(R.id.reportNoiseButton)
         reportNoiseButton.setOnClickListener {
-            // Pobranie lokalizacji użytkownika
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
                     val userLocation = LatLng(it.latitude, it.longitude)
-                    // Okno dialogowe do zgłoszenia hałasu
                     showNoiseReportDialog(userLocation)
                 }
             }
@@ -67,13 +56,10 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
-    /**
-     * Metoda ustawiająca mapę i ładująca zgłoszenia hałasu z pamięci.
-     * @param googleMap Obiekt mapy, który został załadowany.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
@@ -81,23 +67,19 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
         loadNoiseReports()
     }
 
-    /**
-     * Metoda konfiguruje mapę, w tym umożliwia lokalizację użytkownika na mapie,
-     * jeśli aplikacja ma odpowiednie uprawnienia.
-     */
     private fun setUpMap() {
-        // Sprawdzenie uprawnień do lokalizacji
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_REQUEST_CODE
+            )
             return
         }
         map.isMyLocationEnabled = true
     }
 
-    /**
-     * Metoda wyświetlająca okno dialogowe, które umożliwia użytkownikowi zgłoszenie poziomu hałasu.
-     * @param latLng Lokalizacja, w której hałas został zgłoszony.
-     */
     private fun showNoiseReportDialog(latLng: LatLng) {
         val levels = arrayOf("50 dB", "60 dB", "70 dB", "80 dB", "90 dB", "100 dB")
         AlertDialog.Builder(this)
@@ -111,46 +93,41 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
             .show()
     }
 
-    /**
-     * Metoda służąca do zapisu zgłoszenia hałasu do lokalnej pamięci urządzenia.
-     * @param latLng Lokalizacja, w której hałas został zgłoszony.
-     * @param noiseLevel Poziom hałasu zgłoszony przez użytkownika.
-     */
     private fun saveNoiseReport(latLng: LatLng, noiseLevel: String) {
-        val sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-        sharedPreferences.edit() {
-            val reports = JSONArray(sharedPreferences.getString(KEY_REPORTS, "[]"))
+        val report = hashMapOf(
+            "lat" to latLng.latitude,
+            "lng" to latLng.longitude,
+            "level" to noiseLevel,
+            "timestamp" to System.currentTimeMillis()
+        )
 
-            val report = JSONObject()
-            report.put("lat", latLng.latitude)
-            report.put("lng", latLng.longitude)
-            report.put("level", noiseLevel)
-
-            reports.put(report)
-            putString(KEY_REPORTS, reports.toString())
-        }
+        firestore.collection("noise_reports")
+            .add(report)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Zapisano zgłoszenie w Firestore", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Błąd zapisu: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 
-    /**
-     * Metoda ładuje zgłoszenia hałasu z lokalnej pamięci urządzenia i dodaje markery na mapie.
-     */
     private fun loadNoiseReports() {
-        val sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-        val reports = JSONArray(sharedPreferences.getString(KEY_REPORTS, "[]"))
-
-        for (i in 0 until reports.length()) {
-            val report = reports.getJSONObject(i)
-            val latLng = LatLng(report.getDouble("lat"), report.getDouble("lng"))
-            val noiseLevel = report.getString("level")
-            addNoiseMarker(latLng, noiseLevel)
-        }
+        firestore.collection("noise_reports")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val lat = document.getDouble("lat") ?: continue
+                    val lng = document.getDouble("lng") ?: continue
+                    val level = document.getString("level") ?: continue
+                    val latLng = LatLng(lat, lng)
+                    addNoiseMarker(latLng, level)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Błąd wczytywania: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 
-    /**
-     * Metoda dodająca marker na mapie dla zgłoszonego hałasu.
-     * @param latLng Lokalizacja, w której hałas został zgłoszony.
-     * @param noiseLevel Poziom hałasu zgłoszony przez użytkownika.
-     */
     private fun addNoiseMarker(latLng: LatLng, noiseLevel: String) {
         val markerOptions = MarkerOptions()
             .position(latLng)
