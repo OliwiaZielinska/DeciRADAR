@@ -46,6 +46,11 @@ class MainViewApp : AppCompatActivity() {
         soundMeter = SoundMeter()
         // Uruchomienie usługi monitorowania dźwięku w tle
         val serviceIntent = Intent(this, SoundMonitorService::class.java)
+
+        // Uruchamianie usługi monitorowania lokalizacji w tle
+        val intent = Intent(this, NoiseMonitoringService::class.java)
+        startService(intent)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(serviceIntent)
         } else {
