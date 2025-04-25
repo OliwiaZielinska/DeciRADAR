@@ -14,8 +14,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 /**
- * Klasa MainActivity obsługuje ekran logowania użytkownika.
- * Umożliwia logowanie oraz przejście do rejestracji nowego konta.
+ * Klasa `MainActivity` odpowiada za ekran logowania użytkownika.
+ *
+ * Obsługuje logowanie przy pomocy Firebase Authentication, przejście do rejestracji,
+ * sprawdzenie uprawnień (w tym powiadomień dla Androida 13+), oraz podstawową walidację pól wejściowych.
  */
 class MainActivity : BaseActivity() {
     private var loginButton: Button? = null // Przycisk logowania
@@ -67,7 +69,13 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    // obsługa wyniku zapytania o uprawnienia
+    /**
+     * Obsługuje odpowiedź użytkownika na prośbę o przyznanie uprawnień.
+     *
+     * @param requestCode Kod żądania uprawnień.
+     * @param permissions Lista żądanych uprawnień.
+     * @param grantResults Wyniki (przyznane lub nie) dla każdego uprawnienia.
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

@@ -207,7 +207,9 @@ class SoundMonitorService : Service() {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return timeFormat.format(Date())
     }
-
+    /**
+     * Uruchamia usługę jako usługę pierwszoplanową z powiadomieniem.
+     */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground(1, createServiceNotification())
         return START_STICKY
