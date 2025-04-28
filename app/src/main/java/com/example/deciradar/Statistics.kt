@@ -111,16 +111,19 @@ class Statistics : AppCompatActivity() {
                             if (measurementDate != null) {
                                 val shouldAdd = when (filter) {
                                     "Tydzień" -> {
-                                        calendar.add(Calendar.WEEK_OF_YEAR, -1)
-                                        measurementDate.after(calendar.time)
+                                        val tempCalendar = Calendar.getInstance()
+                                        tempCalendar.add(Calendar.WEEK_OF_YEAR, -1)
+                                        measurementDate.after(tempCalendar.time)
                                     }
                                     "Miesiąc" -> {
-                                        calendar.add(Calendar.MONTH, -1)
-                                        measurementDate.after(calendar.time)
+                                        val tempCalendar = Calendar.getInstance()
+                                        tempCalendar.add(Calendar.MONTH, -1)
+                                        measurementDate.after(tempCalendar.time)
                                     }
                                     "Rok" -> {
-                                        calendar.add(Calendar.YEAR, -1)
-                                        measurementDate.after(calendar.time)
+                                        val tempCalendar = Calendar.getInstance()
+                                        tempCalendar.add(Calendar.YEAR, -1)
+                                        measurementDate.after(tempCalendar.time)
                                     }
                                     else -> true
                                 }
