@@ -153,7 +153,7 @@ class ChartActivity : AppCompatActivity() {
                     val intensityStr = document.getString("soundIntensity")?.trim()
                     if (!dateStr.isNullOrEmpty() && !intensityStr.isNullOrEmpty()) {
                         val intensityValue = intensityStr.replace(",", ".").toFloatOrNull()
-                        if (intensityValue != null && intensityValue.isFinite()) {
+                        if (intensityValue != null && intensityValue.isFinite() && intensityValue >= 0f) {
                             dateToIntensities.getOrPut(dateStr) { mutableListOf() }.add(intensityValue)
                         }
                     }
