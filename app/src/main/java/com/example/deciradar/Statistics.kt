@@ -88,37 +88,60 @@ class Statistics : AppCompatActivity() {
      */
     private fun fetchFirestoreData(filter: String) {
         val userId = this.userId ?: return
+        val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val now = Calendar.getInstance()
-        val cutoffDate: Date? = when (filter) {
-            "Tydzień" -> {
-                val c = now.clone() as Calendar
-                c.add(Calendar.DAY_OF_YEAR, -7)
-                c.time
-            }
-            "Miesiąc" -> {
-                val c = now.clone() as Calendar
-                c.add(Calendar.DAY_OF_YEAR, -30)
-                c.time
-            }
-            "Rok" -> {
-                val c = now.clone() as Calendar
-                c.add(Calendar.YEAR, -1)
-                c.time
-            }
-            else -> null
-        }
 
         db.collection("measurements")
-            .whereEqualTo("userID", userId)
+            .whereEqualTo("userID", userId) // Pobranie danych tylko dla aktualnego użytkownika
             .get()
             .addOnSuccessListener { documents ->
                 soundDataList.clear()
                 for (document in documents) {
-                    val date = document.getString("date") ?: continue
-                    val hour = document.getString("hour") ?: continue
-                    val soundIntensity = document.getString("soundIntensity") ?: continue
+                    val date = document.getString("date") ?: ""
+                    val hour = document.getString("hour") ?: ""
+                    val soundIntensity = document.getString("soundIntensity") ?: ""
 
+                    if (date.isNotEmpty() && hour.isNotEmpty() && soundIntensity.isNotEmpty()) {
+                        try {
+                            val intensityValue = soundIntensity.replace(",", ".").toDoubleOrNull()
+                            if (intensityValue == null || intensityValue.isInfinite()) {
+                                continue // pominięcie wartości infinite
+                            }
+                            val measurementDate = dateFormat.parse(date)
+                            if (measurementDate != null) {
+                                val shouldAdd = when (filter) {
+                                    "Tydzień" -> {
+                                        val tempCalendar = Calendar.getInstance()
+                                        tempCalendar.add(Calendar.WEEK_OF_YEAR, -1)
+                                        measurementDate.after(tempCalendar.time)
+                                    }
+                                    "Miesiąc" -> {
+                                        val tempCalendar = Calendar.getInstance()
+                                        tempCalendar.add(Calendar.MONTH, -1)
+                                        measurementDate.after(tempCalendar.time)
+                                    }
+                                    "Rok" -> {
+                                        val tempCalendar = Calendar.getInstance()
+                                        tempCalendar.add(Calendar.YEAR, -1)
+                                        measurementDate.after(tempCalendar.time)
+                                    }
+                                    else -> true
+                                }
+
+                                if (shouldAdd) {
+                                    soundDataList.add(
+                                        SoundData(
+                                            date,
+                                            formatHour(hour),
+                                            formatSoundIntensity(soundIntensity),
+                                            userId
+                                        )
+                                    )
+                                }
+                            }
+                        } catch (e: Exception) {
+                            Log.e("Firestore", "Błąd parsowania daty", e)
+                        }
                     try {
                         val intensityValue = soundIntensity.replace(",", ".").toDoubleOrNull()
                         if (intensityValue == null || intensityValue.isInfinite() || intensityValue < 0) {
@@ -181,14 +204,13 @@ class Statistics : AppCompatActivity() {
                         }
                     }
                 }
-
-                // Sortowanie listy
+                // Sortowanie listy według daty i godziny w kolejności rosnącej
                 val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                soundDataList.sortWith(compareBy {
+                soundDataList.sortWith(compareBy { soundData ->
                     try {
-                        dateTimeFormat.parse("${it.date} ${it.hour}")
+                        dateTimeFormat.parse("${soundData.date} ${soundData.hour}")
                     } catch (e: Exception) {
-                        Log.e("Sorting", "Błąd parsowania daty i godziny: ${it.date} ${it.hour}", e)
+                        Log.e("Sorting", "Błąd parsowania daty i godziny: ${soundData.date} ${soundData.hour}", e)
                         null
                     }
                 })
@@ -198,7 +220,6 @@ class Statistics : AppCompatActivity() {
                 Log.e("Firestore", "Błąd pobierania danych", e)
             }
     }
-
 
     /**
      * Formatuje godzinę do formatu "HH:mm", usuwając sekundy.
