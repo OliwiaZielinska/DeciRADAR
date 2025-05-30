@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,8 +46,31 @@ class Statistics : AppCompatActivity() {
         // Inicjalizacja RecyclerView
         recyclerView = findViewById(R.id.statisticsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = SoundDataAdapter(soundDataList)
+        adapter = SoundDataAdapter(soundDataList, object : OnSoundDataInteractionListener {
+            override fun onItemClick(data: SoundData) {
+                Toast.makeText(this@Statistics, "Szczegóły: ${data.date} ${data.hour}", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemDelete(data: SoundData, position: Int) {
+                soundDataList.removeAt(position)
+                adapter.notifyItemRemoved(position)
+
+                // Usunięcie z Firestore
+                db.collection("measurements")
+                    .whereEqualTo("userID", data.userID)
+                    .whereEqualTo("date", data.date)
+                    .whereEqualTo("hour", data.hour)
+                    .whereEqualTo("soundIntensity", data.soundIntensity)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (doc in documents) {
+                            doc.reference.delete()
+                        }
+                    }
+            }
+        })
         recyclerView.adapter = adapter
+
 
         // Spinner do filtrowania danych
         spinnerFilter = findViewById(R.id.spinnerFilter)
