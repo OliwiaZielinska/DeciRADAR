@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import android.location.Location
+
 
 /**
  * Usługa monitorowania dźwięku działająca w tle, która:
@@ -37,6 +41,7 @@ class SoundMonitorService : Service() {
     // Zmienna kontroli powiadomień – minimalny odstęp między powiadomieniami (np. 60 sekund)
     private var lastNotificationTime: Long = 0
     private val notificationInterval = 60 * 1000L
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     @RequiresPermission(Manifest.permission.RECORD_AUDIO)
     override fun onCreate() {
@@ -50,6 +55,8 @@ class SoundMonitorService : Service() {
         // Uruchomienie dwóch zadań: zapisywanie do bazy oraz monitorowanie poziomu dźwięku
         startPeriodicSaving()
         startSoundLevelMonitoring()
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
     }
 
     /**
@@ -182,16 +189,25 @@ class SoundMonitorService : Service() {
 
         val userID = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        val measurement = Measurements(
-            userID = userID,
-            date = currentDate,
-            hour = currentTime,
-            soundIntensity = soundIntensity
-        )
+        // Pobieramy ostatnią znaną lokalizację
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            val lat = location?.latitude
+            val lng = location?.longitude
 
-        val db = FirebaseFirestore.getInstance()
-        db.collection("measurements").add(measurement)
+            val measurement = Measurements(
+                userID = userID,
+                date = currentDate,
+                hour = currentTime,
+                soundIntensity = soundIntensity,
+                lat = lat,
+                lng = lng
+            )
+
+            val db = FirebaseFirestore.getInstance()
+            db.collection("measurements").add(measurement)
+        }
     }
+
 
     /**
      * Określa, czy aktualny czas mieści się w przedziale trybu nocnego.
