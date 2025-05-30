@@ -80,16 +80,53 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
         map.uiSettings.isZoomControlsEnabled = true
         setUpMap()
         loadNoiseReports()
+        map.setOnMarkerClickListener { marker ->
+            showConfirmationDialog(marker)
+            true // zwracamy true, by nie pokazywać domyślnego info okna
+        }
     }
 
+    private fun showConfirmationDialog(marker: com.google.android.gms.maps.model.Marker) {
+        val position = marker.position
+
+        AlertDialog.Builder(this)
+            .setTitle("Czy hałas jest nadal aktualny?")
+            .setMessage(marker.title)
+            .setPositiveButton("TAK") { dialog, _ ->
+                dialog.dismiss()
+                Toast.makeText(this, "Dzięki za potwierdzenie!", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("NIE") { dialog, _ ->
+                deleteNoiseReport(position)
+                marker.remove()
+                Toast.makeText(this, "Pomiar usunięty z mapy", Toast.LENGTH_SHORT).show()
+            }
+            .show()
+    }
+
+    private fun deleteNoiseReport(position: LatLng) {
+        firestore.collection("noiseReports")
+            .whereEqualTo("lat", position.latitude)
+            .whereEqualTo("lng", position.longitude)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    firestore.collection("noiseReports").document(document.id).delete()
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Błąd usuwania: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+    }
     /**
      * Metoda konfiguruje mapę, w tym umożliwia lokalizację użytkownika na mapie,
      * jeśli aplikacja ma odpowiednie uprawnienia.
      */
+    @SuppressLint("MissingPermission")
     private fun setUpMap() {
-        // Sprawdzenie uprawnień do lokalizacji
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -97,7 +134,17 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
             )
             return
         }
+
         map.isMyLocationEnabled = true
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let {
+                val userLatLng = LatLng(it.latitude, it.longitude)
+                val zoomLevel = 15f
+                val cameraUpdate = com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(userLatLng, zoomLevel)
+                map.animateCamera(cameraUpdate)
+            }
+        }
     }
 
     /**
@@ -166,9 +213,29 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
      * @param noiseLevel Poziom hałasu zgłoszony przez użytkownika.
      */
     private fun addNoiseMarker(latLng: LatLng, noiseLevel: String) {
+        val numericLevel = noiseLevel.filter { it.isDigit() }.toIntOrNull() ?: return
+        val hue = getHueForNoiseLevel(numericLevel)
+
         val markerOptions = MarkerOptions()
             .position(latLng)
             .title("Poziom hałasu: $noiseLevel")
+            .icon(com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(hue))
+
         map.addMarker(markerOptions)
+    }
+
+    private fun getHueForNoiseLevel(level: Int): Float {
+        return when (level) {
+            in 0..30 -> 120f            // ciemnozielony (zielony)
+            in 31..40 -> 100f           // jaśniejszy zielony
+            in 41..60 -> 80f            // jeszcze jaśniejszy zielony
+            in 61..70 -> 60f            // zielono-żółty
+            in 71..75 -> 50f            // żółty
+            in 76..90 -> 45f            // ciemnożółty
+            in 91..100 -> 30f           // jasnopomarańczowy
+            in 101..110 -> 20f          // pomarańczowy
+            in 111..120 -> 10f          // ciemnopomarańczowy
+            else -> 0f                  // czerwony
+        }
     }
 }
