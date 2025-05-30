@@ -11,5 +11,8 @@ data class SoundData(
     val date: String = "",
     val hour: String = "",
     val soundIntensity: String = "",
-    val userID: String = ""
+    val userID: String = "",
+    val lat: Double? = null,
+    val lng: Double? = null,
+    val documentId: String? = null
 )

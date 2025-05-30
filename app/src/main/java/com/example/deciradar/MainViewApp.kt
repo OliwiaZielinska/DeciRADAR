@@ -15,6 +15,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.deciradar.CloudFirestore.Measurements
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
@@ -27,6 +29,8 @@ import java.util.*
 class MainViewApp : AppCompatActivity() {
     private lateinit var soundMeter: SoundMeter // Obiekt do mierzenia poziomu dźwięku
     private lateinit var decibelTextView: TextView // Pole tekstowe wyświetlające poziom dźwięku
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     /**
      * Metoda onCreate inicjalizuje interfejs użytkownika, rozpoczyna monitorowanie dźwięku
      * oraz ustawia obsługę kliknięć dla różnych przycisków nawigacyjnych.
@@ -36,6 +40,8 @@ class MainViewApp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view_app)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         // Inicjalizacja przycisków nawigacyjnych
         val statisticsButton: Button = findViewById(R.id.StatisticsButton)
         val mapsButton: Button = findViewById(R.id.MapsButton)
@@ -134,28 +140,40 @@ class MainViewApp : AppCompatActivity() {
         val currentDate = dateFormat.format(Date()) // Pobranie aktualnej daty
         val currentTime = timeFormat.format(Date()) // Pobranie aktualnej godziny
         val soundIntensity = decibelTextView.text.toString()
-
         val userID = FirebaseAuth.getInstance().currentUser?.uid ?: "Unknown"
-
-        val measurement = Measurements(
-            userID = userID,
-            date = currentDate,
-            hour = currentTime,
-            soundIntensity = soundIntensity
-        )
         val db = FirebaseFirestore.getInstance()
 
-        db.collection("measurements")
-            .add(measurement)
-            .addOnSuccessListener { documentReference ->
-                println("DocumentSnapshot added with ID: ${documentReference.id}")
-                Toast.makeText(this, "Wynik został zapisany", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                println("Error adding document: $e")
-                Toast.makeText(this, "Błąd zapisu danych", Toast.LENGTH_SHORT).show()
-            }
+        // Pobieranie lokalizacji
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            val lat = location?.latitude
+            val lng = location?.longitude
+
+            val measurement = Measurements(
+                userID = userID,
+                date = currentDate,
+                hour = currentTime,
+                soundIntensity = soundIntensity,
+                lat = lat,
+                lng = lng
+            )
+
+            db.collection("measurements")
+                .add(measurement)
+                .addOnSuccessListener { documentReference ->
+                    println("DocumentSnapshot added with ID: ${documentReference.id}")
+                    Toast.makeText(this, "Wynik został zapisany", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    println("Error adding document: $e")
+                    Toast.makeText(this, "Błąd zapisu danych", Toast.LENGTH_SHORT).show()
+                }
+        }.addOnFailureListener { exception ->
+            println("Błąd pobierania lokalizacji: $exception")
+            Toast.makeText(this, "Nie udało się pobrać lokalizacji", Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     /**
      * Metoda onDestroy jest wywoływana podczas zamykania aktywności.

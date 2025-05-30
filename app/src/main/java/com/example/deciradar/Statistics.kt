@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,26 +49,39 @@ class Statistics : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = SoundDataAdapter(soundDataList, object : OnSoundDataInteractionListener {
             override fun onItemClick(data: SoundData) {
-                Toast.makeText(this@Statistics, "Szczegóły: ${data.date} ${data.hour}", Toast.LENGTH_SHORT).show()
+                val lat = data.lat?.toString() ?: "Brak"
+                val lng = data.lng?.toString() ?: "Brak"
+                val message = "Data: ${data.date}\nGodzina: ${data.hour}\nWspółrzędne: $lat, $lng"
+
+                AlertDialog.Builder(this@Statistics)
+                    .setTitle("Szczegóły pomiaru")
+                    .setMessage(message)
+                    .setPositiveButton("OK", null)
+                    .show()
             }
+
 
             override fun onItemDelete(data: SoundData, position: Int) {
                 soundDataList.removeAt(position)
                 adapter.notifyItemRemoved(position)
 
-                // Usunięcie z Firestore
-                db.collection("measurements")
-                    .whereEqualTo("userID", data.userID)
-                    .whereEqualTo("date", data.date)
-                    .whereEqualTo("hour", data.hour)
-                    .whereEqualTo("soundIntensity", data.soundIntensity)
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (doc in documents) {
-                            doc.reference.delete()
+
+                data.documentId?.let { docId ->
+                    db.collection("measurements")
+                        .document(docId)
+                        .delete()
+                        .addOnSuccessListener {
+                            Toast.makeText(this@Statistics, "Pomiar usunięty", Toast.LENGTH_SHORT).show()
                         }
-                    }
-            }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this@Statistics, "Błąd usuwania pomiaru", Toast.LENGTH_SHORT).show()
+                            Log.e("Firestore", "Błąd usuwania dokumentu", e)
+                        }
+                } ?: run {
+                    Toast.makeText(this@Statistics, "Brak ID dokumentu, nie można usunąć", Toast.LENGTH_SHORT).show()
+                }
+
+        }
         })
         recyclerView.adapter = adapter
 
@@ -114,6 +128,8 @@ class Statistics : AppCompatActivity() {
         val userId = this.userId ?: return
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val now = Calendar.getInstance()
+
+
         val cutoffDate: Date? = when (filter) {
             "Tydzień" -> {
                 val c = now.clone() as Calendar
@@ -142,6 +158,9 @@ class Statistics : AppCompatActivity() {
                     val date = document.getString("date") ?: continue
                     val hour = document.getString("hour") ?: continue
                     val soundIntensity = document.getString("soundIntensity") ?: continue
+                    val lat = document.getDouble("lat")
+                    val lng = document.getDouble("lng")
+                    val documentId = document.id
 
                     try {
                         val intensityValue = soundIntensity.replace(",", ".").toDoubleOrNull()
@@ -156,9 +175,13 @@ class Statistics : AppCompatActivity() {
                                     date,
                                     formatHour(hour),
                                     formatSoundIntensity(soundIntensity),
-                                    userId
+                                    userId,
+                                    lat,
+                                    lng,
+                                    documentId
                                 )
                             )
+
                         }
                     } catch (e: Exception) {
                         Log.e("Firestore", "Błąd parsowania danych", e)
