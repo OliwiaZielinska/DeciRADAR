@@ -61,7 +61,7 @@ class NoiseMonitoringService : Service() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("DeciRadar aktywny")
             .setContentText("Trwa monitorowanie hałasu w tle")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ear)
             .build()
 
         startForeground(1, notification)
@@ -139,7 +139,7 @@ class NoiseMonitoringService : Service() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Hałas w pobliżu!")
             .setContentText("Zbliżasz się do miejsca o hałasie $level dB. Odległość: ${distance}m")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ear)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
