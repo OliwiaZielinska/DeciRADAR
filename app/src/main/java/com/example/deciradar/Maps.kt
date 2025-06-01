@@ -223,7 +223,12 @@ class Maps : AppCompatActivity(), OnMapReadyCallback {
 
         map.addMarker(markerOptions)
     }
-
+    /**
+     * Zwraca odpowiedni odcień koloru markera na podstawie poziomu hałasu.
+     *
+     * @param level Poziom hałasu jako liczba całkowita.
+     * @return Float reprezentujący wartość hue (barwy) markera mapy Google.
+     */
     private fun getHueForNoiseLevel(level: Int): Float {
         return when (level) {
             in 0..30 -> 120f            // ciemnozielony (zielony)

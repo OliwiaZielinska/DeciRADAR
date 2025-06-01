@@ -93,6 +93,9 @@
                 android:value="" />
         </activity>
 
+        <activity android:name=".DetailsActivity" />
+
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

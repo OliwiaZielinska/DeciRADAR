@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,52 +18,71 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Klasa Statistics odpowiada za wyświetlanie statystyk pomiarów dźwięku.
- * Pozwala użytkownikowi filtrować dane według określonych zakresów czasowych
- * i pobiera dane z Firestore.
+ * Aktywność Statistics odpowiada za prezentację statystyk pomiarów dźwięku.
+ * Umożliwia użytkownikowi filtrowanie danych na podstawie okresu czasu (tydzień, miesiąc, rok),
+ * a także przejście do szczegółów pomiaru lub wykresu.
  */
 class Statistics : AppCompatActivity() {
 
+    // RecyclerView do wyświetlania listy pomiarów
     private lateinit var recyclerView: RecyclerView
+
+    // Adapter do obsługi danych pomiarów
     private lateinit var adapter: SoundDataAdapter
+
+    // Lista przechowująca dane pomiarów dźwięku
     private val soundDataList = mutableListOf<SoundData>()
+
+    // Spinner służący do wyboru filtra czasowego
     private lateinit var spinnerFilter: Spinner
+
+    // Instancja Firebase Authentication
     private lateinit var auth: FirebaseAuth
+
+    // Instancja bazy danych Firestore
     private val db = FirebaseFirestore.getInstance()
-    private var userId: String? = null  // Identyfikator użytkownika
+
+    // Identyfikator aktualnie zalogowanego użytkownika
+    private var userId: String? = null
 
     /**
-     * Metoda onCreate inicjalizuje widok statystyk oraz komponenty UI.
-     * @param savedInstanceState zapisany stan instancji
+     * Metoda onCreate inicjalizuje widok aktywności oraz wszystkie komponenty UI.
+     * @param savedInstanceState zapisany stan instancji (jeśli istnieje)
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.statistics)
 
         auth = FirebaseAuth.getInstance()
-        userId = intent.getStringExtra("uID") ?: auth.currentUser?.uid // Pobranie przekazanego identyfikatora użytkownika
+        userId = intent.getStringExtra("uID") ?: auth.currentUser?.uid // Pobranie ID użytkownika
 
-        // Inicjalizacja RecyclerView
+        // Inicjalizacja komponentów RecyclerView
         recyclerView = findViewById(R.id.statisticsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = SoundDataAdapter(soundDataList, object : OnSoundDataInteractionListener {
-            override fun onItemClick(data: SoundData) {
-                val lat = data.lat?.toString() ?: "Brak"
-                val lng = data.lng?.toString() ?: "Brak"
-                val message = "Data: ${data.date}\nGodzina: ${data.hour}\nWspółrzędne: $lat, $lng"
 
-                AlertDialog.Builder(this@Statistics)
-                    .setTitle("Szczegóły pomiaru")
-                    .setMessage(message)
-                    .setPositiveButton("OK", null)
-                    .show()
+            /**
+             * Obsługa kliknięcia elementu listy – przejście do szczegółów pomiaru.
+             * @param data dane pojedynczego pomiaru
+             */
+            override fun onItemClick(data: SoundData) {
+                val intent = Intent(this@Statistics, DetailsActivity::class.java)
+                intent.putExtra("date", data.date)
+                intent.putExtra("hour", data.hour)
+                intent.putExtra("intensity", data.soundIntensity)
+                intent.putExtra("lat", data.lat ?: 0.0)
+                intent.putExtra("lng", data.lng ?: 0.0)
+                startActivity(intent)
             }
 
-
+            /**
+             * Obsługa usuwania elementu z listy i bazy Firestore.
+             * @param data dane pomiaru do usunięcia
+             * @param position pozycja elementu w liście
+             */
             override fun onItemDelete(data: SoundData, position: Int) {
                 soundDataList.removeAt(position)
                 adapter.notifyItemRemoved(position)
-
 
                 data.documentId?.let { docId ->
                     db.collection("measurements")
@@ -80,72 +98,60 @@ class Statistics : AppCompatActivity() {
                 } ?: run {
                     Toast.makeText(this@Statistics, "Brak ID dokumentu, nie można usunąć", Toast.LENGTH_SHORT).show()
                 }
-
-        }
+            }
         })
         recyclerView.adapter = adapter
 
-
-        // Spinner do filtrowania danych
+        // Inicjalizacja spinnera z filtrami czasowymi
         spinnerFilter = findViewById(R.id.spinnerFilter)
         val filterOptions = arrayOf("Wszystko", "Tydzień", "Miesiąc", "Rok")
         val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, filterOptions)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerFilter.adapter = spinnerAdapter
 
+        // Obsługa wyboru filtra w spinnerze
         spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedFilter = filterOptions[position]
-                fetchFirestoreData(selectedFilter) // Pobieranie danych z Firestore z wybranym filtrem
+                fetchFirestoreData(selectedFilter) // Pobierz dane z Firestore na podstawie wybranego filtra
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // Przycisk powrotu do głównego widoku aplikacji
+        // Obsługa przycisku powrotu do głównej aktywności aplikacji
         findViewById<Button>(R.id.BackStatisticsButton).setOnClickListener {
             val intent = Intent(this, MainViewApp::class.java)
-            intent.putExtra("uID", userId) // Przekazanie uID do głównej aktywności
+            intent.putExtra("uID", userId) // Przekazanie identyfikatora użytkownika
             startActivity(intent)
             finish()
         }
 
-        // Przycisk do przejścia do ChartActivity
+        // Obsługa przycisku przejścia do aktywności z wykresem
         findViewById<Button>(R.id.ChartStatisticsButton).setOnClickListener {
             val intent = Intent(this, ChartActivity::class.java)
-            intent.putExtra("uID", userId) // Przekazanie uID do ChartActivity
+            intent.putExtra("uID", userId) // Przekazanie identyfikatora użytkownika
             startActivity(intent)
         }
 
-        fetchFirestoreData("Wszystko") // Domyślne pobranie wszystkich danych
+        // Domyślne pobranie wszystkich danych
+        fetchFirestoreData("Wszystko")
     }
 
     /**
-     * Pobiera dane pomiarów dźwięku z Firestore i filtruje je według wybranego zakresu czasowego.
-     * @param filter Wybrany filtr czasowy (np. "Tydzień", "Miesiąc", "Rok" lub "Wszystko").
+     * Pobiera dane pomiarów użytkownika z Firestore i filtruje je według wybranego przedziału czasowego.
+     * @param filter Filtr czasowy – "Tydzień", "Miesiąc", "Rok" lub "Wszystko".
      */
     private fun fetchFirestoreData(filter: String) {
         val userId = this.userId ?: return
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val now = Calendar.getInstance()
 
-
+        // Obliczenie daty granicznej w zależności od wybranego filtra
         val cutoffDate: Date? = when (filter) {
-            "Tydzień" -> {
-                val c = now.clone() as Calendar
-                c.add(Calendar.DAY_OF_YEAR, -7)
-                c.time
-            }
-            "Miesiąc" -> {
-                val c = now.clone() as Calendar
-                c.add(Calendar.DAY_OF_YEAR, -30)
-                c.time
-            }
-            "Rok" -> {
-                val c = now.clone() as Calendar
-                c.add(Calendar.YEAR, -1)
-                c.time
-            }
+            "Tydzień" -> Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -7) }.time
+            "Miesiąc" -> Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -30) }.time
+            "Rok" -> Calendar.getInstance().apply { add(Calendar.YEAR, -1) }.time
             else -> null
         }
 
@@ -164,9 +170,7 @@ class Statistics : AppCompatActivity() {
 
                     try {
                         val intensityValue = soundIntensity.replace(",", ".").toDoubleOrNull()
-                        if (intensityValue == null || intensityValue.isInfinite() || intensityValue < 0) {
-                            continue // Pomiń nieprawidłowe lub ujemne wartości
-                        }
+                        if (intensityValue == null || intensityValue.isInfinite() || intensityValue < 0) continue
 
                         val measurementDate = dateFormat.parse(date)
                         if (measurementDate != null && (cutoffDate == null || measurementDate.after(cutoffDate))) {
@@ -181,14 +185,13 @@ class Statistics : AppCompatActivity() {
                                     documentId
                                 )
                             )
-
                         }
                     } catch (e: Exception) {
                         Log.e("Firestore", "Błąd parsowania danych", e)
                     }
                 }
 
-                // Sortowanie listy
+                // Sortowanie listy według daty i godziny
                 val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                 soundDataList.sortWith(compareBy {
                     try {
@@ -198,6 +201,7 @@ class Statistics : AppCompatActivity() {
                         null
                     }
                 })
+
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
@@ -205,11 +209,10 @@ class Statistics : AppCompatActivity() {
             }
     }
 
-
     /**
-     * Formatuje godzinę do formatu "HH:mm", usuwając sekundy.
+     * Formatuje godzinę do uproszczonego formatu "HH:mm".
      * @param hour Godzina w formacie "HH:mm:ss".
-     * @return Sformatowana godzina w formacie "HH:mm".
+     * @return Godzina w formacie "HH:mm".
      */
     private fun formatHour(hour: String): String {
         return try {
@@ -218,20 +221,20 @@ class Statistics : AppCompatActivity() {
             val date = inputFormat.parse(hour)
             outputFormat.format(date ?: hour)
         } catch (e: Exception) {
-            hour // Jeśli wystąpi błąd, zwróć oryginalny string
+            hour
         }
     }
 
     /**
-     * Formatuje wartość natężenia dźwięku do dwóch miejsc po przecinku.
-     * @param soundIntensity Wartość natężenia dźwięku jako string.
-     * @return Sformatowana wartość z dwoma miejscami po przecinku.
+     * Formatuje natężenie dźwięku jako liczbę zmiennoprzecinkową z dwoma miejscami po przecinku.
+     * @param soundIntensity wartość natężenia dźwięku jako String.
+     * @return Sformatowana wartość natężenia.
      */
     private fun formatSoundIntensity(soundIntensity: String): String {
         return try {
             String.format(Locale.US, "%.2f", soundIntensity.replace(",", ".").toDouble())
         } catch (e: Exception) {
-            soundIntensity // Jeśli wystąpi błąd, zwróć oryginalny string
+            soundIntensity
         }
     }
 }
