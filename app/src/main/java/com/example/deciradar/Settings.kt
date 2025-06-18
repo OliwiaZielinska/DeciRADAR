@@ -178,14 +178,28 @@ class Settings : BaseActivity() {
      * Usuwa konto użytkownika oraz powiązane dane z Firestore.
      */
     private fun deleteAccount() {
-        val userId = FirebaseAuth.getInstance().currentUser!!.email
-        GlobalScope.launch(Dispatchers.Main) {
-            dbOperations.deleteUser(userId.toString())
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Usuwanie konta")
+        builder.setMessage("Czy na pewno chcesz usunąć konto? Tej operacji nie można cofnąć.")
+
+        builder.setPositiveButton("Tak") { _, _ ->
+            val userId = FirebaseAuth.getInstance().currentUser!!.email
+            GlobalScope.launch(Dispatchers.Main) {
+                dbOperations.deleteUser(userId.toString())
+            }
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+
+        builder.setNegativeButton("Anuluj") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
+
     /**
      * Przekierowuje użytkownika do ekranu głównego aplikacji z nowymi danymi.
      */

@@ -96,10 +96,10 @@ class SoundDataAdapter(
             AlertDialog.Builder(holder.view.context)
                 .setTitle("Usuń pomiar")
                 .setMessage("Czy chcesz usunąć ten pomiar?")
+                .setNegativeButton("Nie", null)
                 .setPositiveButton("Tak") { _, _ ->
                     listener.onItemDelete(data, position)
                 }
-                .setNegativeButton("Nie", null)
                 .show()
             true
         }

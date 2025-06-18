@@ -87,10 +87,15 @@ class ChartActivity : AppCompatActivity() {
             fos.close()
             saveToGallery(file, format)
             Log.d("ChartActivity", "Wykres zapisano w: ${file.absolutePath}")
+
+
+            android.widget.Toast.makeText(this, "Zapisano z powodzeniem", android.widget.Toast.LENGTH_SHORT).show()
+
         } catch (e: Exception) {
             Log.e("ChartActivity", "Błąd zapisu wykresu", e)
         }
     }
+
     /**
      * Zapisuje plik wykresu do galerii urządzenia.
      * @param file Obiekt pliku wykresu.
